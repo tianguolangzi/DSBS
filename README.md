@@ -5,8 +5,11 @@ DSBS is written in Python3.5 (tested with v3.4 / v3.5 ).
 
 ## Installation
 [python3+](https://www.python.org/)
+
 [termcolor](https://pypi.python.org/pypi/termcolor/1.1.0)
+
 [pysam](https://pypi.python.org/pypi/pysam)
+
 [pyfasta](https://pypi.python.org/pypi/pyfasta/0.5.2)
 
 ## Usage
