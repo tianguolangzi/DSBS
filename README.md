@@ -95,7 +95,10 @@ If any question, please :
 
 
 
-### Contributors
-Many thanks to those who have helped out with with project so far:
+## Contributors
 * Project lead and main author: [@Liang Jialong](https://github.com/lll)
 * Project lead and main author: [@Zhang Kun](https://github.com/tianguolangzi)
+Thanks to my friends who give me a hand with project:
+* [@Shi Xiaohui]()
+* [@Li Xianfeng]()
+* [@Teng Huajing]()
