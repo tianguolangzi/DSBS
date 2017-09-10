@@ -14,7 +14,17 @@ DSBS is written in Python3.5 (tested with v3.4 / v3.5 ).
 
 ## Usage
 Once installed, you can use DSBS 
+python3 DSBS.py 
 
+usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
+               [--mixLen MIXLEN] [--mixReadQual MIXREADQUAL]
+               [--mixReadQualN MIXREADQUALN] [--maxN MAXN]
+               [--maxSeqErr MAXSEQERR] [--maxSnp MAXSNP] [--maxIndel MAXINDEL]
+               [--maxBp MAXBP] [--maxMut MAXMUT] [--minQual MINQUAL]
+               [--minVaf MINVAF] [--secAlign] [--debug] [-q] [-c COVERAGE]
+               [-p CPU] [-o OUTDIR] -g GENOMEFILE -d DBSNP [--Chr CHR]
+               bamFile
+DSBS.py: error: the following arguments are required: bamFile, -g/--genomeFile, -d/--dbsnp
 
 MultiQC is written in Python (tested with v2.7 / v3.4 / v3.5). It is
 available on the [Python Package Index](https://pypi.python.org/pypi/multiqc/)
@@ -24,7 +34,7 @@ and through conda using [Bioconda](http://bioconda.github.io/).
 
 Contributions and suggestions for new features are welcome, as are bug reports! Please create a new [issue](https://github.com/tianguolangzi/DSBS/issues) for any of these, including example reports where possible.
 
-If any question, plese :
+If any question, please :
 [@Zhang Kun](https://github.com/tianguolangzi) (tianguolangzi@yahoo.com; tianguolangzi@gmail.com)
 
 
