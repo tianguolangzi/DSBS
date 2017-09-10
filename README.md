@@ -3,7 +3,12 @@
 DSBS is a special tool to call variants and methylations for the DSBS project.
 DSBS is written in Python3.5 (tested with v3.4 / v3.5 ).
 
+## Citation
+
+## License
+
 ## Accuracy
+
 
 ### WGS vs DSBS
 
@@ -98,7 +103,8 @@ If any question, please :
 ## Contributors
 * Project lead and main author: [@Liang Jialong](https://github.com/lll)
 * Project lead and main author: [@Zhang Kun](https://github.com/tianguolangzi)
+
 Thanks to my friends who give me a hand with project:
-  * [@Shi Xiaohui]()
-  * [@Li Xianfeng](https://github.com/xflicsu)
-  * [@Teng Huajing]()
+* [@Shi Xiaohui]()
+* [@Li Xianfeng](https://github.com/xflicsu)
+* [@Teng Huajing]()
