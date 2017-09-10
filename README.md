@@ -25,9 +25,6 @@ The commands:
 	bgzip dbsnp138.vcf 
 	tabix -s 1 -b 2 dbsnp138.vcf.gz 
 
-
-<img src="DSBS/img/DSBS.run.png" width="300" title="DSBS">
-
 `python DSBS.py`
 
 ```
@@ -72,7 +69,7 @@ usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
 
 ## Update 
 * V1.1 (2017-09-10)
- * Add the dbsnp id in outfile 
+ ** Add the dbsnp id in outfile 
 ## Contributions & Support
 
 Contributions and suggestions for new features are welcome, as are bug reports! Please create a new [issue](https://github.com/tianguolangzi/DSBS/issues) for any of these, including example reports where possible.
