@@ -71,7 +71,7 @@ usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
   `-g GENOMEFILE, --genomeFile GENOMEFILE` input FASTA file
   `-d DBSNP, --dbsnp DBSNP`   dbsnp
   `--Chr CHR`            chr1.fa
-```
+
 
 ## Contributions & Support
 
