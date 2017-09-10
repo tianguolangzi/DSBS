@@ -6,10 +6,17 @@ DSBS is written in Python3.5 (tested with v3.4 / v3.5 ).
 ## Accuracy
 
 ### WGS vs DSBS
+
 	[此处要放DSBS和WGS图]
+	
 ### WGBS vs DSBS
+
 	[此处要放甲基化图]
-#### bissnip vs DSBS
+	
+### bissnip vs DSBS
+	
+	[软件对比图]	
+
 
 ## Dependencies
 DSBS depends on 
