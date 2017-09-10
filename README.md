@@ -15,7 +15,7 @@ DSBS is written in Python3.5 (tested with v3.4 / v3.5 ).
 ## Usage
 Once installed, you can use DSBS 
 python3 DSBS.py 
-
+'''
 usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
                [--mixLen MIXLEN] [--mixReadQual MIXREADQUAL]
                [--mixReadQualN MIXREADQUALN] [--maxN MAXN]
@@ -25,6 +25,7 @@ usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
                [-p CPU] [-o OUTDIR] -g GENOMEFILE -d DBSNP [--Chr CHR]
                bamFile
 DSBS.py: error: the following arguments are required: bamFile, -g/--genomeFile, -d/--dbsnp
+'''
 
 MultiQC is written in Python (tested with v2.7 / v3.4 / v3.5). It is
 available on the [Python Package Index](https://pypi.python.org/pypi/multiqc/)
