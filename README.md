@@ -18,7 +18,7 @@ DSBS depends on
 `python DSBS.py  example.bam -g chr1.fa -d dbsnp138.vcf.gz --chr chr1 -o outdir -q` 
 
 
-### index 
+### Index 
 One time only, it is necessary to index  a reference sequence and the dbsnp file。
 The commands:
 
@@ -70,7 +70,9 @@ usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
  * `-d DBSNP, --dbsnp DBSNP`   dbsnp
  * `--Chr CHR`            chr1.fa
 
-
+## Update 
+* V1.1 (2017-09-10)
+ * Add the dbsnp id in outfile 
 ## Contributions & Support
 
 Contributions and suggestions for new features are welcome, as are bug reports! Please create a new [issue](https://github.com/tianguolangzi/DSBS/issues) for any of these, including example reports where possible.
