@@ -99,7 +99,6 @@ If any question, please :
 * Project lead and main author: [@Liang Jialong](https://github.com/lll)
 * Project lead and main author: [@Zhang Kun](https://github.com/tianguolangzi)
 Thanks to my friends who give me a hand with project:
-
-* [@Shi Xiaohui]()
-* [@Li Xianfeng](https://github.com/xflicsu)
-* [@Teng Huajing]()
+  * [@Shi Xiaohui]()
+  * [@Li Xianfeng](https://github.com/xflicsu)
+  * [@Teng Huajing]()
