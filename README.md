@@ -78,7 +78,7 @@ usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
  * `--minQual MINQUAL`     支持SNP的最小质量值,默认20
  * `--minVaf MINVAF`       等位基因频率最小值,默认0.1
  * `--secAlign`            找突变的时候考虑非最优比对，默认否
- * `--debug`               dubug输出模式,调试用的
+ * `--debug`               debug输出模式,调试用的
  * `-q, --quite`           安静模式,默认开启
  * `-c COVERAGE, --coverage COVERAGE`  coverage or minimum number of reads desired
  * `-p CPU, --cpu CPU`     子进程,默认50
