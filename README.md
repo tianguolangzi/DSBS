@@ -87,19 +87,21 @@ usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
  * `-d DBSNP, --dbsnp DBSNP`   dbsnp
  * `--Chr CHR`            染色体号
 
-###  Single jobs
-`
-python3 DSBS.py   chr1.merge.sorted.rmdup.realigned.recal.bam  --maxBp 50  --minVaf 0.1  -q -p 40  -o outdir  -g  chr1.fa --Chr chr1 -d dbsnp_138.hg19.vcf.gz  --secAlign 
-`
+####  Single jobs
+
+	`
+	python3 DSBS.py   chr1.merge.sorted.rmdup.realigned.recal.bam  --maxBp 50  --minVaf 0.1  -q -p 40  -o outdir  -g  chr1.fa --Chr chr1 -d dbsnp_138.hg19.vcf.gz  --secAlign 
+	`
 
 #### Batch jobs
 use [job_sub_py_2]()  based on [PBS]() to  deliver the jobs
-`
-for i in {1..22} X Y M;
-do 
-job_sub_py_2 --jobname chr$i --cpu 2 --work "python3 ~/zhangkun/bin/python3_bin/DSBS.py /public/home/jcli/zhangkun/work/DSBS/hg19/DSBS_NEW_merge/bam/chr$i.merge.sorted.rmdup.realigned.recal.bam --maxBp 50 --minVaf 0.1  -q --cpu 40  -o /public/home/jcli/zhangkun/work/DSBS/hg19/DSBS_NEW_merge/script6 -g   ~/public/database/hg19/chr$i.fa  --Chr chr$i -d dbsnp_138.hg19.vcf.gz "
-done
-`
+
+	`
+	for i in {1..22} X Y M;
+	do 
+	job_sub_py_2 --jobname chr$i --cpu 2 --work "python3 ~/zhangkun/bin/python3_bin/DSBS.py 	/public/home/jcli/zhangkun/work/DSBS/hg19/DSBS_NEW_merge/bam/chr$i.merge.sorted.rmdup.realigned.recal.bam --maxBp 50 --minVaf 0.1  -q --	cpu 40  -o /public/home/jcli/zhangkun/work/DSBS/hg19/DSBS_NEW_merge/script6 -g   ~/public/database/hg19/chr$i.fa  --Chr chr$i -d 	dbsnp_138.hg19.vcf.gz "
+	done
+	`
 
 ## Update 
 * V1.1 (2017-09-10)
