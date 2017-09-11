@@ -87,9 +87,9 @@ usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
  * `-d DBSNP, --dbsnp DBSNP`   dbsnp
  * `--Chr CHR`            染色体号
 
-	```
+	`
 	python3 DSBS.py   chr1.merge.sorted.rmdup.realigned.recal.bam  --maxBp 50  --minVaf 0.1  -q -p 40  -o outdir  -g  chr1.fa --Chr chr1 -d dbsnp_138.hg19.vcf.gz  --secAlign 
-	```
+	`
 
 ```
  	for i in {1..22} X Y M;
