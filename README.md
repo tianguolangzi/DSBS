@@ -68,7 +68,7 @@ usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
  * `--maxLen MAXLEN`       read最长长度,默认200
  * `--mixLen MIXLEN`       read最短长度,默认50
  * `--mixReadQual MIXREADQUAL` 筛选read整体质量值时最小质量值,默认20
- * `--mixReadQualN MIXREADQUALN` 筛选read整体质量值时,大于最小质量值比例,默认0.6
+ * `--mixReadQualN MIXREADQUALN`  筛选read整体质量值时,大于最小质量值比例,默认0.6
  * `--maxN MAXN`           一条read最多出现N的个数,默认4
  * `--maxSeqErr MAXSEQERR` 配对read最多允许出现测序错误个数,默认10
  * `--maxSnp MAXSNP`       配对read最多允许出现Snp的个数,默认5
@@ -85,7 +85,7 @@ usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
  * `-o OUTDIR, --outdir OUTDIR` outdir
  * `-g GENOMEFILE, --genomeFile GENOMEFILE` input FASTA file
  * `-d DBSNP, --dbsnp DBSNP`   dbsnp
- * `--Chr CHR`            chr1.fa
+ * `--Chr CHR`            染色体号
 
 ## Update 
 * V1.1 (2017-09-10)
