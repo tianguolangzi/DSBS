@@ -42,8 +42,8 @@ DSBS depends on
 One time only, it is necessary to index  a reference sequence and the dbsnp file。
 The commands:
 
-	bgzip dbsnp138.vcf 
-	tabix -s 1 -b 2 dbsnp138.vcf.gz 
+	bgzip dbsnp_138.hg19.vcf
+	tabix -s 1 -b 2 dbsnp_138.hg19.vcf.gz
 
 `python DSBS.py`
 
@@ -86,6 +86,13 @@ usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
  * `-g GENOMEFILE, --genomeFile GENOMEFILE` input FASTA file
  * `-d DBSNP, --dbsnp DBSNP`   dbsnp
  * `--Chr CHR`            染色体号
+
+```python3 DSBS.py   chr1.merge.sorted.rmdup.realigned.recal.bam  --maxBp 50 --minVaf 0.1  -q -p 40  -o outdir  -g  chr1.fa  --Chr chr1 -d dbsnp_138.hg19.vcf.gz --secAlign 
+```
+
+```
+ for i in {1..22} X Y M;do job_sub_py_2 --jobname chr$i --cpu 2 --work "python3 ~/zhangkun/bin/python3_bin/DSBS.py   /public/home/jcli/zhangkun/work/DSBS/hg19/DSBS_NEW_merge/bam/chr$i.merge.sorted.rmdup.realigned.recal.bam  --maxBp 50 --minVaf 0.1  -q --cpu 40  -o /public/home/jcli/zhangkun/work/DSBS/hg19/DSBS_NEW_merge/script6  -g   ~/public/database/hg19/chr$i.fa  --Chr chr$i -d dbsnp_138.hg19.vcf.gz "; done
+```
 
 ## Update 
 * V1.1 (2017-09-10)
