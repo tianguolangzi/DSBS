@@ -87,19 +87,12 @@ usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
  * `-d DBSNP, --dbsnp DBSNP`   dbsnp
  * `--Chr CHR`            染色体号
 
-	```python3 DSBS.py   chr1.merge.sorted.rmdup.realigned.recal.bam  \
-				--maxBp 50 \
-				--minVaf 0.1 \
-				-q -p 40     \
-				-o outdir  \
-				-g  chr1.fa \
-				--Chr chr1 \
-				-d dbsnp_138.hg19.vcf.gz \
-				--secAlign 
+	```
+	python3 DSBS.py   chr1.merge.sorted.rmdup.realigned.recal.bam  --maxBp 50  --minVaf 0.1  -q -p 40  -o outdir  -g  chr1.fa --Chr chr1 -d dbsnp_138.hg19.vcf.gz  --secAlign 
 	```
 
 ```
- for i in {1..22} X Y M;
+ 	for i in {1..22} X Y M;
  	do 
 	job_sub_py_2 --jobname chr$i --cpu 2 --work "python3 ~/zhangkun/bin/python3_bin/DSBS.py   \
 	/public/home/jcli/zhangkun/work/DSBS/hg19/DSBS_NEW_merge/bam/chr$i.merge.sorted.rmdup.realigned.recal.bam  \
