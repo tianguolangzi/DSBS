@@ -11,13 +11,19 @@ DSBS is written in Python3.5 (tested with v3.4 / v3.5 ).
 
 
 ### WGS vs DSBS
-
+* Coverage in whole genome
 	[此处要放DSBS和WGS图]
-	
+* Coverage in non-repeat region
+* Coverage in Exome region
+* Snp Overlap between WGS and DSBS
+
 ### WGBS vs DSBS
+* Coverage in all CpG sites of whole genome
+* Coverage in all CpG sites of non-repeat region
+* Coverage in all CpG sites of repeat region
 
 	[此处要放甲基化图]
-	
+* Methylation Pearson in WGBS and DSBS	
 ### bissnip vs DSBS
 	
 	[软件对比图]	
