@@ -100,7 +100,7 @@ python3 DSBS.py   chr1.merge.sorted.rmdup.realigned.recal.bam  --maxBp 50  --min
 `
 
 #### Batch jobs
-use [job_sub_py_2]()  based on [PBS](https://github.com/pbspro/pbspro) to  deliver the jobs
+use [job_sub_py_2](https://github.com/tianguolangzi/ZK-Tools)  based on [PBS](https://github.com/pbspro/pbspro) to  deliver the jobs
 
 `
 for i in {1..22} X Y M;
