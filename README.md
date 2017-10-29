@@ -24,9 +24,10 @@ DSBS is written in Python3.5 (tested with v3.4 / v3.5 ).
 
 	[此处要放甲基化图]
 * Methylation Pearson in WGBS and DSBS	
-### bissnip vs DSBS
+
+### [BS-snper](https://github.com/hellbelly/BS-Snper) vs [FreeBayes](https://github.com/ekg/freebayes) vs [bcftools](https://github.com/samtools/bcftools) vs [VarScan](https://github.com/dkoboldt/varscan) vs [GATK](https://github.com/broadinstitute/gatk) vs [DSBS](https://github.com/tianguolangzi/DSBS)
 	
-	[软件对比图]	
+[软件对比图]	
 
 
 ## Dependencies
