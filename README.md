@@ -2,15 +2,15 @@
 
 |Software|version|website|
 |---------|---------|-------|
-|Fastuniq|1.1|https://homes.cs.washington.edu/~dcjones/fastq-tools||
-|Fastqc|0.11.5http://www.bioinformatics.babraham.ac.uk/projects/FastQC||
+|Fastuniq|1.1|https://homes.cs.washington.edu/~dcjones/fastq-tools|
+|Fastqc|0.11.5|http://www.bioinformatics.babraham.ac.uk/projects/FastQC|
 |Cutadapt|1.11|https://github.com/marcelm/cutadapt|
 |Trim_galore|0.4.2|http://www.bioinformatics.babraham.ac.uk/projects/trim_galore|
 |Bsmap|2.74|https://code.google.com/archive/p/bsmap/|
 |Samtools|0.1.19|http://samtools.sourceforge.net/|
 |Picard|2.9|http://broadinstitute.github.io/picard/|
 |Bissnp|0.82.2|https://sourceforge.net/projects/bissnp/|
-|Bamqc|https://github.com/s-andrews/BamQC|
+|Bamqc||https://github.com/s-andrews/BamQC|
 |Qualimap|2.2.1|http://qualimap.bioinfo.cipf.es/|
 |VarScan|2.3.9|http://varscan.sourceforge.net/|
 |GATK|3.8|https://software.broadinstitute.org/gatk/|
