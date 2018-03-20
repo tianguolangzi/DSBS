@@ -17,7 +17,7 @@
 |Freebayes|1.1.0-50|https://github.com/ekg/freebayes/releases|
 |MethylDackel|0.3|https://github.com/dpryan79/MethylDackel/releases|
 |Bcftools|0.1.19|http://www.htslib.org/doc/bcftools.html|
-|BS-Snper|https://github.com/hellbelly/BS-Snper|
+|BS-Snper||https://github.com/hellbelly/BS-Snper|
 |BWA|0.7.7|https://github.com/lh3/bwa/releases|
 |Tabix|0.2.5|http://www.htslib.org/doc/tabix.html|
 |hg19.fa|hg19|ftp://ftp.broadinstitute.org/bundle/hg19/|
