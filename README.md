@@ -213,7 +213,7 @@ DSBS_pipeline.2017.6.14.py: error: the following arguments are required: -a/--fq
 
 #### config
 
-`[jcli@loginI1 ~]$ cat  ~/zhangkun/work/DSBS/bin/DSBS.anzhen.config`
+`cat  ~/zhangkun/work/DSBS/bin/DSBS.anzhen.config`
 
 Here is the example of config file which configured the path of softwares and databases and  software operating environment. Y For those necessary softwares and databases, you are on your own. It is important to note that each software needs to have execute permission(`chmod a+x soft`).
 
