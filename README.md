@@ -1,14 +1,4 @@
----
-title: 更新说明
-tags: 小书匠,更新
-grammar_footnote: true
-grammar_cjkEmphasis: true
-grammar_cjkRuby: true
----
 
-# 1.10.0
-
-## 1.10.0 _新功能_
 ## DSBS pipeline depends on 
 
 |Software|version|website|
@@ -219,7 +209,7 @@ DSBS_pipeline.2017.6.14.py: error: the following arguments are required: -a/--fq
   * `--qsub`                如果有多对fqs,是否使用qsub来多节点比对
 
 #### Run DSBS_pipeline.2017.06.14.py
-```python3 ~/zhangkun/work/DSBS/bin/DSBS_pipeline.2017.6.14.py --config ~/zhangkun/work/DSBS/bin/anzhen.config  -a /public/home/jcli/zhangkun/work/DSBS/DSBS_wangwen/*_1.fq.gz  -b /public/home/jcli/zhangkun/work/DSBS/DSBS_wangwen/*_2.fq.gz  --fastquniq   --bissnp  -t 40  --pp 1111100 -o  /public/home/jcli/zhangkun/work/DSBS/hg19/DSBS_20180223_wangwen/ --qsub  & ``
+`python3 ~/zhangkun/work/DSBS/bin/DSBS_pipeline.2017.6.14.py --config ~/zhangkun/work/DSBS/bin/anzhen.config  -a /public/home/jcli/zhangkun/work/DSBS/DSBS_wangwen/*_1.fq.gz  -b /public/home/jcli/zhangkun/work/DSBS/DSBS_wangwen/*_2.fq.gz  --fastquniq   --bissnp  -t 40  --pp 1111100 -o  /public/home/jcli/zhangkun/work/DSBS/hg19/DSBS_20180223_wangwen/ --qsub  & `
 
 #### config
 
