@@ -1,3 +1,14 @@
+---
+title: 更新说明
+tags: 小书匠,更新
+grammar_footnote: true
+grammar_cjkEmphasis: true
+grammar_cjkRuby: true
+---
+
+# 1.10.0
+
+## 1.10.0 _新功能_
 ## DSBS pipeline depends on 
 
 |Software|version|website|
@@ -81,7 +92,7 @@ DSBS depends on
 * [pyfasta](https://pypi.python.org/pypi/pyfasta/0.5.2)
 * [tabix](https://)
 
-## Usage
+## DSBS Usage
 
 ### QuickStart
 
@@ -109,7 +120,7 @@ usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
 ```
 
 #### positional arguments:
- * `bamFile`               the input BAM file
+ * `bamFile`               the input BAM file
 
 #### optional arguments:
  * `-h, --help`             show this help message and exit
@@ -128,14 +139,14 @@ usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
  * `--minQual MINQUAL`     支持SNP的最小质量值,默认20
  * `--minVaf MINVAF`       等位基因频率最小值,默认0.1
  * `--secAlign`            找突变的时候考虑非最优比对，默认否
- * `--debug`               debug输出模式,调试用的
+ * `--debug`               debug输出模式,调试用的
  * `-q, --quite`           安静模式,默认开启
  * `-c COVERAGE, --coverage COVERAGE`  coverage or minimum number of reads desired
  * `-p CPU, --cpu CPU`     子进程,默认50
  * `-o OUTDIR, --outdir OUTDIR` outdir
  * `-g GENOMEFILE, --genomeFile GENOMEFILE` input FASTA file
  * `-d DBSNP, --dbsnp DBSNP`   dbsnp
- * `--Chr CHR`            染色体号
+ * `--Chr CHR`            染色体号
 
 ####  Single jobs
 
@@ -153,9 +164,125 @@ job_sub_py_2 --jobname chr$i --cpu 2 --work "python3 ~/zhangkun/bin/python3_bin/
 done
 `
 
+## DSBS pipeline Usage
+
+### QuickStart
+`python3 DSBS_pipeline.py -a fq1(s) -b fq2(s) --ref hg19.fa --config  DSBS_pipeline_config -o outdir`
+
+`python3 ~/zhangkun/work/DSBS/bin/DSBS_pipeline.2017.6.14.py`
+
+```
+                                                
+             m                                      m                           
+             |                                      |                           
+        AGCTACGT  bisulfite treat   -->  A  G {T} TACGT        AGTTACGT         
+        ||||||||-------------------->|   |  |  |  |||||                         
+        TCGATGCA        (C>T)       -->  T {T} G  ATGCA        AACTAGCT         
+              |                                      |                        
+              m                                      m                        
+        C>T  1) bisulfite conversion ?                                          
+             2) mutation ?                                                      
+             3) sequencing errors ?                                             
+    
+usage: DSBS_pipeline.2017.6.14.py [-h] [--config CONFIG] -a [FQ1 [FQ1 ...]] -b
+                                  [FQ2 [FQ2 ...]] [-r REF] [-g GTF]
+                                  [-k [KNOWNSITES [KNOWNSITES ...]]]
+                                  [-d DEPTH] [-p PMTSIZE] [-w WINSIZE]
+                                  [-q CLEANQUALITY] [--gapsize GAPSIZE]
+                                  [--fastquniq] [--revise_sam] [--remove_tmp]
+                                  [--bs2real] [--bissnp] [-t CPU] [--pp PP] -o
+                                  OUTDIR [--qsub]
+DSBS_pipeline.2017.6.14.py: error: the following arguments are required: -a/--fq1, -b/--fq2, -o/--outdir
+```
+
+#### optional arguments:
+   * `-h, --help`            show this help message and exit
+  * `--config CONFIG`       config file 
+  * `-a [FQ1 [FQ1 ...]], --fq1 [FQ1 [FQ1 ...]]` Fastq1(s), 空格分隔
+  * `-b [FQ2 [FQ2 ...]], --fq2 [FQ2 [FQ2 ...]]` Fastq2(s), 空格分隔
+  * `-r REF, --ref REF`     参考基因组
+  * `-g GTF, --gtf GTF`     参考基因
+  * `-k [KNOWNSITES [KNOWNSITES ...]], --knownsites [KNOWNSITES [KNOWNSITES ...]]` 已知数据库
+  * `-d DEPTH, --depth DEPTH`     最小深度,默认4
+  * `-p PMTSIZE, --pmtsize PMTSIZE` 启动子区间大小,默认2000
+  * `-w WINSIZE, --winsize WINSIZE`  窗口大小,默认200000
+  * `-q CLEANQUALITY, --cleanquality CLEANQUALITY`  clean时的质量值控制
+  * `--gapsize GAPSIZE`     插入缺失大小,默认3
+  * `--fastquniq`           clean前rmdup一遍,默认False
+  * `--revise_sam`          修正可能是由于测序错误导致的多测或少测一个碱基的情况
+  * `--remove_tmp`          删除临时文件
+  * `--bs2real`             未配对的转换重新bwa对比一遍,默认False
+  * `--bissnp`              局部重新比对
+  * `-t CPU, --cpu CPU`     进程, 默认 40
+  * `--pp PP`               1,执行,0,跳过. 1)质控, 2)清洗, 3)比对, 4)处理, 5)突变和甲基化 , 6)统计作图 ,7)交集, 默认 1111111
+  * `-o OUTDIR, --outdir OUTDIR` 输出目录     
+  * `--qsub`                如果有多对fqs,是否使用qsub来多节点比对
+
+#### Run DSBS_pipeline.2017.06.14.py
+```python3 ~/zhangkun/work/DSBS/bin/DSBS_pipeline.2017.6.14.py --config ~/zhangkun/work/DSBS/bin/anzhen.config  -a /public/home/jcli/zhangkun/work/DSBS/DSBS_wangwen/*_1.fq.gz  -b /public/home/jcli/zhangkun/work/DSBS/DSBS_wangwen/*_2.fq.gz  --fastquniq   --bissnp  -t 40  --pp 1111100 -o  /public/home/jcli/zhangkun/work/DSBS/hg19/DSBS_20180223_wangwen/ --qsub  & ``
+
+#### config
+
+`[jcli@loginI1 ~]$ cat  ~/zhangkun/work/DSBS/bin/DSBS.anzhen.config`
+
+```
+#这是安贞服务器上DSBS运行环境配置
+#soft
+
+#运行环境
+java:/public/home/jcli/zhangkun/bin/java_bin/jdk1.8.0_111/bin/java:soft
+java1.6:/usr/bin/java:soft
+python3:/public/home/jcli/public/bin/python3:soft
+
+#质控
+fastqc:/public/home/jcli/public/bin/fastqc:soft
+qualimap:/public/home/jcli/zhangkun/bin/bin/qualimap_v2.2.1/qualimap:soft
+#muiltqc:/public/home/jcli/public/software/Python3.5/bin/multiqc:soft
+
+#clean,rmdup
+fastuniq:/public/home/jcli/zhangkun/bin/bin/FastUniq/fastuniq:soft
+cutadapt:/public/home/jcli/public/bin/cutadapt:soft
+filter_fq:/public/home/jcli/zhangkun/bin/python3_bin/filter_fq.py:soft
+SAMdeduplicate:/public/home/jcli/zhangkun/work/DSBS/bin/SAMdeduplicate.pl:soft
+stdmap_awk:/public/home/jcli/zhangkun/work/DSBS/bin/stdmap.awk:soft
+diffmap_awk:/public/home/jcli/zhangkun/work/DSBS/bin/diffmap.awk:soft
+
+Bs2Real:/public/home/jcli/zhangkun/work/DSBS/bin/Bs2Real.py:soft
+bwa:/public/home/jcli/public/bin/bwa:soft
+bsmap:/public/home/jcli/zhangkun/work/DSBS/bin/bsmap2.7/bsmap:soft
+bissnp:/public/home/jcli/zhangkun/work/DSBS/bin/BisSNP/BisSNP-0.82.2.jar:soft
+#bwameth:/public/home/jcli/public/software/Python3.5/bin/bwameth.py:soft
+
+#qsub
+job_sub_py_2:/public/home/jcli/zhangkun/bin/python3_bin/job_sub_py_2.py:soft
+
+#index, sort, merge, split 
+samtools:/public/home/jcli/public/bin/samtools:soft
+picard:/public/home/jcli/zhangkun/bin/java_bin/picard.jar:soft
+#picard:/histor/sun/wujinyu/zhangkun/DSBS/bin/picard2.9/picard.jar:soft
+
+
+#call SNP and  methy
+#DSBS:/public/home/jcli/zhangkun/work/DSBS/bin/DSBS.py:soft
+DSBS:/public/home/jcli/zhangkun/bin/python3_bin/DSBS.py:soft
+#resource
+refDir:/public/home/jcli/public/database/hg19/:resource
+ref:/public/home/jcli/public/database/hg19/hg19.fa:resource
+gtf:/public/home/jcli/zhangkun/data_base/UCSC_gtf/hg19.gene.gtf.gz:resource
+1000G_omni:/public/home/jcli/zhangkun/work/DSBS/bin/database/1000G_omni2.5.hg19.sites.vcf:resource
+1000G_phase1:/public/home/jcli/zhangkun/work/DSBS/bin/database/1000G_phase1.snps.high_confidence.hg19.sites.vcf:resource
+dbsnp:/public/home/jcli/zhangkun/work/DSBS/bin/database/dbsnp_138.hg19.vcf:resource
+dbsnp_gz:/public/home/jcli/zhangkun/work/DSBS/bin/database/dbsnp_138.hg19.vcf.gz:resource
+hapmap:/public/home/jcli/zhangkun/work/DSBS/bin/database/hapmap_3.3.hg19.sites.vcf:resource
+```
+
 ## Update 
 * V1.1 (2017-09-10)
-  * Add the dbsnp id in outfile 
+  * Add the dbsnp id in outfile
+* V1.2 (2018-01-29)
+  * Add the methylation level in CpG/CHG/CHH in outfile
+* V1.3 (2018-03-26)
+  *Add the hemimethylation level in CpG/CHG/CHH in outfile
  
 ## Contributions & Support
 
@@ -174,3 +301,5 @@ Thanks to my friends who give me a hand with project:
 * [@Shi Xiaohui]()
 * [@Li Xianfeng](https://github.com/xflicsu)
 * [@Teng Huajing]()
+
+
