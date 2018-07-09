@@ -272,8 +272,9 @@ hapmap:/public/home/jcli/zhangkun/work/DSBS/bin/database/hapmap_3.3.hg19.sites.v
 * V1.2 (2018-01-29)
   * Add the methylation level in CpG/CHG/CHH in outfile
 * V1.3 (2018-03-26)
-  *Add the hemimethylation level in CpG/CHG/CHH in outfile
- 
+  * Add the hemimethylation level in CpG/CHG/CHH in outfile
+* V1.3 (2018-07-09)
+  * Add the CNV information in outfile
 ## Contributions & Support
 
 Contributions and suggestions for new features are welcome, as are bug reports! Please create a new [issue](https://github.com/tianguolangzi/DSBS/issues) for any of these, including example reports where possible.
