@@ -94,7 +94,8 @@ One time only, it is necessary to index  a reference sequence and the dbsnp file
 The commands:
 
 	bgzip dbsnp_138.hg19.vcf
-	tabix -s 1 -b 2 dbsnp_138.hg19.vcf.gz
+	tabix -s 1 -b 2 dbsnp_138.hg19.vcf.gz (tabix -s 1 -b 2 -p vcf dbsnp_138.hg19.vcf.gz )
+ 	
 
 `python DSBS.py`
 
