@@ -22,7 +22,7 @@
 |BWA|0.7.7|https://github.com/lh3/bwa/releases|
 |Tabix|0.2.5|http://www.htslib.org/doc/tabix.html|
 |hg19.fa|hg19|ftp://ftp.broadinstitute.org/bundle/hg19/|
-|Dbsnp|138|ftp://ftp.broadinstitute.org/bundle/hg19/|
+|dbsnp|138|ftp://ftp.broadinstitute.org/bundle/hg19/|
 |Hapmap|3.3|ftp://ftp.broadinstitute.org/bundle/hg19/|
 |Mills_and_1000G_gold_standard.indels|hg19|ftp://ftp.broadinstitute.org/bundle/hg19/|
 |1000G_phase1.snps|hg19|ftp://ftp.broadinstitute.org/bundle/hg19/|
