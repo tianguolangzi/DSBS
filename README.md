@@ -78,7 +78,7 @@ DSBS is written in Python3.5 (tested with v3.4 / v3.5 ).
 DSBS depends on 
 * [python3+](https://www.python.org/)
 * [termcolor](https://pypi.python.org/pypi/termcolor/1.1.0)
-* [pysam](https://pypi.python.org/pypi/pysam)
+* [pysam-0.11.0](https://github.com/pysam-developers/pysam/archive/v0.11.0.tar.gz)
 * [pyfasta](https://pypi.python.org/pypi/pyfasta/0.5.2)
 * [tabix](https://)
 
