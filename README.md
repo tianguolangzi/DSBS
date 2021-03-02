@@ -1,5 +1,4 @@
 
-## DSBS pipeline depends on 
 
 |Software|version|website|
 |---------|---------|-------|
@@ -8,7 +7,7 @@
 |Cutadapt|1.11|https://github.com/marcelm/cutadapt|
 |Trim_galore|0.4.2|http://www.bioinformatics.babraham.ac.uk/projects/trim_galore|
 |Bsmap|2.74|https://code.google.com/archive/p/bsmap/|
-|Samtools|0.1.19|http://samtools.sourceforge.net/|
+|Samtools|1.8|http://samtools.sourceforge.net/|
 |Picard|2.9|http://broadinstitute.github.io/picard/|
 |Bissnp|0.82.2|https://sourceforge.net/projects/bissnp/|
 |Bamqc||https://github.com/s-andrews/BamQC|
@@ -42,10 +41,6 @@ DSBS is a special tool to call variants and methylations for the DSBS project.
 DSBS is written in Python3.5 (tested with v3.4 / v3.5 ).
 
 ## Citation
-
-## License
-
-## Accuracy
 
 
 ### WGS vs DSBS
@@ -108,22 +103,7 @@ usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
                [--minVaf MINVAF] [--secAlign] [--debug] [-q] [-c COVERAGE]
                [-p CPU] [-o OUTDIR] -g GENOMEFILE -d DBSNP [--Chr CHR]
                bamFile
-```
-
-#### positional arguments:
- * `bamFile`               the input BAM file
-
-#### optional arguments:
-usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
-               [--mixLen MIXLEN] [--mixReadQual MIXREADQUAL]
-               [--mixReadQualN MIXREADQUALN] [--maxN MAXN]
-               [--maxSeqErr MAXSEQERR] [--maxSnp MAXSNP] [--maxIndel MAXINDEL]
-               [--maxBp MAXBP] [--maxMut MAXMUT] [--minQual MINQUAL]
-               [--minVaf MINVAF] [--secAlign] [--debug] [-q] [-c COVERAGE]
-               [-p CPU] [-o OUTDIR] -g GENOMEFILE -d DBSNP [--Chr CHR]
-               bamFile
-               
-               
+	       
 positional arguments:
 bam                           input BAM file
 optional arguments:
@@ -170,7 +150,7 @@ optional arguments:
                             the chromosome reference fasta
 -d DBSNP, --dbsnp DBSNP       the dbsnp file
 --Chr CHR                    chromosome
-
+```
 
 ####  Single jobs
 `
@@ -190,9 +170,9 @@ done
 ## DSBS pipeline Usage
 
 ### QuickStart
-`python3 DSBS_pipeline.py -a fq1(s) -b fq2(s) --ref hg19.fa --config  DSBS_pipeline_config -o outdir`
+`python3 DSBS_pipeline.V1.py -a fq1(s) -b fq2(s) --ref hg19.fa --config  DSBS.config -o outdir`
 
-`python3 ~/zhangkun/work/DSBS/bin/DSBS_pipeline.2017.6.14.py`
+`python3 ~/zhangkun/work/DSBS/bin/DSBS_pipeline.V1.py`
 
 ```
                                                 
@@ -207,115 +187,92 @@ done
              2) mutation ?                                                      
              3) sequencing errors ?                                             
     
-usage: DSBS_pipeline.2017.6.14.py [-h] [--config CONFIG] -a [FQ1 [FQ1 ...]] -b
-                                  [FQ2 [FQ2 ...]] [-r REF] [-g GTF]
-                                  [-k [KNOWNSITES [KNOWNSITES ...]]]
-                                  [-d DEPTH] [-p PMTSIZE] [-w WINSIZE]
-                                  [-q CLEANQUALITY] [--gapsize GAPSIZE]
-                                  [--fastquniq] [--revise_sam] [--remove_tmp]
-                                  [--bs2real] [--bissnp] [-t CPU] [--pp PP] -o
+usage: DSBS_pipeline.V1.py [-h] [--config CONFIG] -a [FQ1 [FQ1 ...]] -b
+                                  [FQ2 [FQ2 ...]] [-r REF] 
+                                  [-k [KNOWNSITES [KNOWNSITES ...]]] [-d DEPTH] 
+				  [-q CLEANQUALITY] [--gapsize GAPSIZE] [--fastquniq]  
+				  [--remove_tmp] [--bissnp] [-t CPU] [--pp PP] -o
                                   OUTDIR [--qsub]
-DSBS_pipeline.2017.6.14.py: error: the following arguments are required: -a/--fq1, -b/--fq2, -o/--outdir
+DSBS_pipeline.V1.py: error: the following arguments are required: -a/--fq1, -b/--fq2, -o/--outdir
+  -h, --help            show this help message and exit
+  --config CONFIG       config file
+  -a [FQ1 [FQ1 ...]], --fq1 [FQ1 [FQ1 ...]]
+                        Fastq1(s), Space separation
+  -b [FQ2 [FQ2 ...]], --fq2 [FQ2 [FQ2 ...]]
+                        Fastq2(s), Space separation
+  -r REF, --ref REF     refrence
+  -k [KNOWNSITES [KNOWNSITES ...]], --knownsites [KNOWNSITES [KNOWNSITES ...]]
+                        knownsites
+  -d DEPTH, --depth DEPTH
+                        the minimum depth , default is 4
+  -q CLEANQUALITY, --cleanquality CLEANQUALITY
+                        quality when clening the fastq
+  --gapsize GAPSIZE     the size of insert or del, default is 3
+  --fastquniq           rmdup fastq before cleanning fastq
+  --remove_tmp          rm temp file
+  --bissnp              bisSNP
+  -t CPU, --cpu CPU     thread, default is 20
+  --pp PP               1,execute ,0,skip. 1)qualimap, 2)clean, 3)align,
+                        4)dealBam, 5)call mutation and methylation 默认 11111
+  -o OUTDIR, --outdir OUTDIR
+                        outdir
+  --qsub                use qsub
 ```
 
-#### optional arguments:
-   * `-h, --help`            show this help message and exit
-  * `--config CONFIG`       config file 
-  * `-a [FQ1 [FQ1 ...]], --fq1 [FQ1 [FQ1 ...]]` Fastq1(s), 空格分隔
-  * `-b [FQ2 [FQ2 ...]], --fq2 [FQ2 [FQ2 ...]]` Fastq2(s), 空格分隔
-  * `-r REF, --ref REF`     参考基因组
-  * `-g GTF, --gtf GTF`     参考基因
-  * `-k [KNOWNSITES [KNOWNSITES ...]], --knownsites [KNOWNSITES [KNOWNSITES ...]]` 已知数据库
-  * `-d DEPTH, --depth DEPTH`     最小深度,默认4
-  * `-p PMTSIZE, --pmtsize PMTSIZE` 启动子区间大小,默认2000
-  * `-w WINSIZE, --winsize WINSIZE`  窗口大小,默认200000
-  * `-q CLEANQUALITY, --cleanquality CLEANQUALITY`  clean时的质量值控制
-  * `--gapsize GAPSIZE`     插入缺失大小,默认3
-  * `--fastquniq`           clean前rmdup一遍,默认False
-  * `--revise_sam`          修正可能是由于测序错误导致的多测或少测一个碱基的情况
-  * `--remove_tmp`          删除临时文件
-  * `--bs2real`             未配对的转换重新bwa对比一遍,默认False
-  * `--bissnp`              局部重新比对
-  * `-t CPU, --cpu CPU`     进程, 默认 40
-  * `--pp PP`               1,执行,0,跳过. 1)质控, 2)清洗, 3)比对, 4)处理, 5)突变和甲基化 , 6)统计作图 ,7)交集, 默认 1111111
-  * `-o OUTDIR, --outdir OUTDIR` 输出目录     
-  * `--qsub`                如果有多对fqs,是否使用qsub来多节点比对
-
-#### Run DSBS_pipeline.2017.06.14.py
-`python3 ~/zhangkun/work/DSBS/bin/DSBS_pipeline.2017.6.14.py --config ~/zhangkun/work/DSBS/bin/anzhen.config  -a /public/home/jcli/zhangkun/work/DSBS/DSBS_wangwen/*_1.fq.gz  -b /public/home/jcli/zhangkun/work/DSBS/DSBS_wangwen/*_2.fq.gz  --fastquniq   --bissnp  -t 40  --pp 1111100 -o  /public/home/jcli/zhangkun/work/DSBS/hg19/DSBS_20180223_wangwen/ --qsub  & `
+#### Run DSBS_pipeline.V1.py
+`python3 DSBS_pipeline.V1.py --config DSBS.config  -a /data_path/*_1.fq.gz  -b /data_path/*_2.fq.gz  --fastquniq   --bissnp  -t 40  --pp 11111 -o  /outdir/ --qsub  & `
 
 #### config
 
-`cat  ~/zhangkun/work/DSBS/bin/DSBS.anzhen.config`
+`cat  DSBS.config`
 
 Here is the example of config file which configured the path of softwares and databases and  software operating environment. Y For those necessary softwares and databases, you are on your own. It is important to note that each software needs to have execute permission(`chmod a+x soft`).
 
 ```
-#这是安贞服务器上DSBS运行环境配置
 #soft
 
-#运行环境
-java:/public/home/jcli/zhangkun/bin/java_bin/jdk1.8.0_111/bin/java:soft
+java:/public/home/zhangkun/bin/java_bin/jdk1.8.0_111/bin/java:soft
 java1.6:/usr/bin/java:soft
-python3:/public/home/jcli/public/bin/python3:soft
+python3:/public/bin/python3:soft
 
-#质控
-fastqc:/public/home/jcli/public/bin/fastqc:soft
-qualimap:/public/home/jcli/zhangkun/bin/bin/qualimap_v2.2.1/qualimap:soft
-#muiltqc:/public/home/jcli/public/software/Python3.5/bin/multiqc:soft
+fastqc:/public/home/public/bin/fastqc:soft
+qualimap:/public/home/zhangkun/bin/qualimap_v2.2.1/qualimap:soft
+#muiltqc:/public/software/Python3.5/bin/multiqc:soft
 
 #clean,rmdup
-fastuniq:/public/home/jcli/zhangkun/bin/bin/FastUniq/fastuniq:soft
-cutadapt:/public/home/jcli/public/bin/cutadapt:soft
-filter_fq:/public/home/jcli/zhangkun/bin/python3_bin/filter_fq.py:soft
-SAMdeduplicate:/public/home/jcli/zhangkun/work/DSBS/bin/SAMdeduplicate.pl:soft
-stdmap_awk:/public/home/jcli/zhangkun/work/DSBS/bin/stdmap.awk:soft
-diffmap_awk:/public/home/jcli/zhangkun/work/DSBS/bin/diffmap.awk:soft
+fastuniq:/public/home/zhangkun/bin/bin/FastUniq/fastuniq:soft
+cutadapt:/public/bin/cutadapt:soft
+filter_fq:/public/home/zhangkun/bin/filter_fq.py:soft
+stdmap_awk:/public/home/zhangkun/work/DSBS/bin/stdmap.awk:soft
+diffmap_awk:/public/home/zhangkun/work/DSBS/bin/diffmap.awk:soft
 
-Bs2Real:/public/home/jcli/zhangkun/work/DSBS/bin/Bs2Real.py:soft
-bwa:/public/home/jcli/public/bin/bwa:soft
-bsmap:/public/home/jcli/zhangkun/work/DSBS/bin/bsmap2.7/bsmap:soft
-bissnp:/public/home/jcli/zhangkun/work/DSBS/bin/BisSNP/BisSNP-0.82.2.jar:soft
-#bwameth:/public/home/jcli/public/software/Python3.5/bin/bwameth.py:soft
+bsmap:/public/home/zhangkun/work/DSBS/bin/bsmap2.7/bsmap:soft
+bissnp:/public/home/zhangkun/work/DSBS/bin/BisSNP/BisSNP-0.82.2.jar:soft
 
 #qsub
-job_sub_py_2:/public/home/jcli/zhangkun/bin/python3_bin/job_sub_py_2.py:soft
+job_sub_py_2:/public/home/zhangkun/bin/python3_bin/job_sub_py_2.py:soft
 
 #index, sort, merge, split 
-samtools:/public/home/jcli/public/bin/samtools:soft
-picard:/public/home/jcli/zhangkun/bin/java_bin/picard.jar:soft
-#picard:/histor/sun/wujinyu/zhangkun/DSBS/bin/picard2.9/picard.jar:soft
+samtools:/public/home/zhangkun/bin/samtools:soft
+picard:/public/home/zhangkun/bin/picard.jar:soft
 
 
 #call SNP and  methy
-#DSBS:/public/home/jcli/zhangkun/work/DSBS/bin/DSBS.py:soft
-DSBS:/public/home/jcli/zhangkun/bin/python3_bin/DSBS.py:soft
+DSBS:/public/home/zhangkun/bin/DSBS.py:soft
 #resource
-refDir:/public/home/jcli/public/database/hg19/:resource
-ref:/public/home/jcli/public/database/hg19/hg19.fa:resource
-gtf:/public/home/jcli/zhangkun/data_base/UCSC_gtf/hg19.gene.gtf.gz:resource
-1000G_omni:/public/home/jcli/zhangkun/work/DSBS/bin/database/1000G_omni2.5.hg19.sites.vcf:resource
-1000G_phase1:/public/home/jcli/zhangkun/work/DSBS/bin/database/1000G_phase1.snps.high_confidence.hg19.sites.vcf:resource
-dbsnp:/public/home/jcli/zhangkun/work/DSBS/bin/database/dbsnp_138.hg19.vcf:resource
-dbsnp_gz:/public/home/jcli/zhangkun/work/DSBS/bin/database/dbsnp_138.hg19.vcf.gz:resource
-hapmap:/public/home/jcli/zhangkun/work/DSBS/bin/database/hapmap_3.3.hg19.sites.vcf:resource
+refDir:/public/home/zhangkun/database/hg19/:resource
+ref:/public/home/zhangkun/database/hg19/hg19.fa:resource
+1000G_omni:/public/home/zhangkun/database/1000G_omni2.5.hg19.sites.vcf:resource
+1000G_phase1:/public/home/zhangkun/database/1000G_phase1.snps.high_confidence.hg19.sites.vcf:resource
+dbsnp:/public/home/zhangkun/database/dbsnp_138.hg19.vcf:resource
+dbsnp_gz:/public/home/zhangkun/database/dbsnp_138.hg19.vcf.gz:resource
+hapmap:/public/home/zhangkun/database/hapmap_3.3.hg19.sites.vcf:resource
 ```
-
-## Update 
-* V1.1 (2017-09-10)
-  * Add the dbsnp id in outfile
-* V1.2 (2018-01-29)
-  * Add the methylation level in CpG/CHG/CHH in outfile
-* V1.3 (2018-03-26)
-  * Add the hemimethylation level in CpG/CHG/CHH in outfile
-* V1.3 (2018-07-09)
-  * Add the CNV information in outfile
-## Contributions & Support
 
 Contributions and suggestions for new features are welcome, as are bug reports! Please create a new [issue](https://github.com/tianguolangzi/DSBS/issues) for any of these, including example reports where possible.
 
 If any question, please :
-[@Zhang Kun](https://github.com/tianguolangzi) (tianguolangzi@yahoo.com; tianguolangzi@gmail.com)
+[@Zhang Kun](https://github.com/tianguolangzi) (tianguolangzi@yahoo.com)
 
 
 
@@ -324,7 +281,6 @@ If any question, please :
 * Project lead and main author: [@Zhang Kun](https://github.com/tianguolangzi)
 
 Thanks to my friends who give me a hand with project:
-* [@Shi Xiaohui]()
 * [@Li Xianfeng](https://github.com/xflicsu)
 * [@Teng Huajing]()
 
