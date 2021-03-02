@@ -45,7 +45,6 @@ DSBS is written in Python3.5 (tested with v3.4 / v3.5 ).
 
 ### WGS vs DSBS
 * Coverage in whole genome
-	[此处要放DSBS和WGS图]
 * Coverage in non-repeat region
 * Coverage in Exome region
 * Snp Overlap between WGS and DSBS
@@ -54,8 +53,6 @@ DSBS is written in Python3.5 (tested with v3.4 / v3.5 ).
 * Coverage in all CpG sites of whole genome
 * Coverage in all CpG sites of non-repeat region
 * Coverage in all CpG sites of repeat region
-
-	[此处要放甲基化图]
 * Methylation Pearson in WGBS and DSBS	
 
 ### BS-snper vs FreeBayes vs bcftools vs VarScan vs GATK vs DSBS
@@ -66,7 +63,6 @@ DSBS is written in Python3.5 (tested with v3.4 / v3.5 ).
 * [GATK](https://github.com/broadinstitute/gatk) 
 * [DSBS](https://github.com/tianguolangzi/DSBS)
 	
-[软件对比图]	
 
 
 ## Dependencies
@@ -163,7 +159,7 @@ use [job_sub_py_2](https://github.com/tianguolangzi/ZK-Tools)  based on [PBS](ht
 `
 for i in {1..22} X Y M;
 do 
-job_sub_py_2 --jobname chr$i --cpu 2 --work "python3 ~/zhangkun/bin/python3_bin/DSBS.py 	/public/home/jcli/zhangkun/work/DSBS/hg19/DSBS_NEW_merge/bam/chr$i.merge.sorted.rmdup.realigned.recal.bam --maxBp 50 --minVaf 0.1  -q --cpu 40  -o /public/home/jcli/zhangkun/work/DSBS/hg19/DSBS_NEW_merge/script6 -g   ~/public/database/hg19/chr$i.fa  --Chr chr$i -d 	dbsnp_138.hg19.vcf.gz "
+job_sub_py_2 --jobname chr$i --cpu 2 --work "python3 ~/zhangkun/bin/DSBS.py 	/public/home/zhangkun/work/DSBS/hg19/DSBS_NEW_merge/bam/chr$i.merge.sorted.rmdup.realigned.recal.bam --maxBp 50 --minVaf 0.1  -q --cpu 40  -o /public/home/zhangkun/work/DSBS/hg19/DSBS_NEW_merge/script6 -g   ~/public/database/hg19/chr$i.fa  --Chr chr$i -d 	dbsnp_138.hg19.vcf.gz "
 done
 `
 
@@ -172,7 +168,7 @@ done
 ### QuickStart
 `python3 DSBS_pipeline.V1.py -a fq1(s) -b fq2(s) --ref hg19.fa --config  DSBS.config -o outdir`
 
-`python3 ~/zhangkun/work/DSBS/bin/DSBS_pipeline.V1.py`
+`python3 DSBS_pipeline.V1.py`
 
 ```
                                                 
