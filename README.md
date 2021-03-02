@@ -114,33 +114,65 @@ usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
  * `bamFile`               the input BAM file
 
 #### optional arguments:
- * `-h, --help`             show this help message and exit
- * `-v, --version`          show program's version number and exit
- * `--maxDistance MAXDISTANCE`  配对read间比对到参考基因组上起始位置间的差,默认50
- * `--maxLen MAXLEN`       read最长长度,默认200
- * `--mixLen MIXLEN`       read最短长度,默认50
- * `--mixReadQual MIXREADQUAL` 筛选read整体质量值时最小质量值,默认20
- * `--mixReadQualN MIXREADQUALN`  筛选read整体质量值时,大于最小质量值比例,默认0.6
- * `--maxN MAXN`           一条read最多出现N的个数,默认4
- * `--maxSeqErr MAXSEQERR` 配对read最多允许出现测序错误个数,默认10
- * `--maxSnp MAXSNP`       配对read最多允许出现Snp的个数,默认5
- * `--maxIndel MAXINDEL`   配对read最多允许出现Indel的个数,默认1
- * `--maxBp MAXBP`         筛选一定范围多个突变时,限定的范围,默认是50bp
- * `--maxMut MAXMUT`       一定范围内,最多允许出现突变的个数,默认3个
- * `--minQual MINQUAL`     支持SNP的最小质量值,默认20
- * `--minVaf MINVAF`       等位基因频率最小值,默认0.1
- * `--secAlign`            找突变的时候考虑非最优比对，默认否
- * `--debug`               debug输出模式,调试用的
- * `-q, --quite`           安静模式,默认开启
- * `-c COVERAGE, --coverage COVERAGE`  coverage or minimum number of reads desired
- * `-p CPU, --cpu CPU`     子进程,默认50
- * `-o OUTDIR, --outdir OUTDIR` outdir
- * `-g GENOMEFILE, --genomeFile GENOMEFILE` input FASTA file
- * `-d DBSNP, --dbsnp DBSNP`   dbsnp
- * `--Chr CHR`            染色体号
+usage: DSBS.py [-h] [-v] [--maxDistance MAXDISTANCE] [--maxLen MAXLEN]
+               [--mixLen MIXLEN] [--mixReadQual MIXREADQUAL]
+               [--mixReadQualN MIXREADQUALN] [--maxN MAXN]
+               [--maxSeqErr MAXSEQERR] [--maxSnp MAXSNP] [--maxIndel MAXINDEL]
+               [--maxBp MAXBP] [--maxMut MAXMUT] [--minQual MINQUAL]
+               [--minVaf MINVAF] [--secAlign] [--debug] [-q] [-c COVERAGE]
+               [-p CPU] [-o OUTDIR] -g GENOMEFILE -d DBSNP [--Chr CHR]
+               bamFile
+               
+               
+positional arguments:
+bam                           input BAM file
+optional arguments:
+-h, --help                    show this help message and exit
+-v, --version                 show program's version number and exit
+--maxDistance MAXDISTANCE     the maxmum distance of the start postions of the
+                              paired reads in reference genome, default is 50
+--maxLen MAXLEN               the maxmum length of a read, default is 200
+--minLen MINLEN               the minimum length of a read, default is 50
+--minReadQual MINREADQUAL     the minimum quality for assessing the read 
+                              overall qualities, default is 20
+--minReadQualN MINREADQUALN   the minimum ratio which quality is greater than
+                              the minReadQual, default is 0.6
+--maxN MAXN                   the maxmum number of N within a read, default is 5
+--maxSeqErr MAXSEQERR         the maxmum number of sequencing errors within a paired
+                              reads, default is 10
+--maxSnp MAXSNP               the maxmum number of snp within a paired reads,
+                              default is 5
+--maxIndel MAXINDEL           the maxmum number of indel within a paired reads,
+                              default is 1
+--maxBp MAXBP                 a certain range for allowing the currence of certain
+                              mutation ,default is 50
+--maxMut MAXMUT               the maxmum number of allowing the currence of
+                              mutation within a certain range ,default is 3
+--minQual MINQUAL             the minimum quality for call Variation, default is 20
+--minVaf MINVAF               the minimum value of allele, default is 0.5
+--window WINDOW               ignoring the snps in a certain range of a indel, the
+                              range is 5bp
+--minCoverage MINCOVERAGE     coverage or minimum number of reads desired,
+                              default is 8
+--maxCoverage MAXCOVERAGE     coverage or maxmum number of reads desired,
+                              default is 500
+--strand                      only consider the correct comparison direction,   
+                              read1=++ && read2=-- || read1=-+ && read2=+-
+--secAlign                    consider non-optimal alignments
+--CpG                         output CpG
+--CHG                         output CHG
+--CHH                         output CHH
+--debug                       dubug mode
+-q, --quite                   quiet mode
+-p CPU, --cpu CPU             the number of working threads, default is 50
+-o OUTDIR, --outDir OUTDIR    the outDir
+-g GENOMEFILE, --genomeFile GENOMEFILE
+                            the chromosome reference fasta
+-d DBSNP, --dbsnp DBSNP       the dbsnp file
+--Chr CHR                    chromosome
+
 
 ####  Single jobs
-
 `
 python3 DSBS.py   chr1.merge.sorted.rmdup.realigned.recal.bam  --maxBp 50  --minVaf 0.1  -q -p 40  -o outdir  -g  chr1.fa --Chr chr1 -d dbsnp_138.hg19.vcf.gz  --secAlign 
 `
