@@ -25,24 +25,7 @@ def purpose():
     
 
 
-def check_current_step():
-    '''
-    #step 1 clean fastq()
-    #step 2 blast clean file()
-    #step 3 devied the bam file to 22 + X + Y BAM()
-    #step 4 get mutation file()
-    #step 5 get statical file()'''
-    step={ 1:'clean/'+sample+'_clean.log', 
-           2:'align/'+sample+'_align.log', 
-           3:'chr_BAM/'+sample+'_split_BAM.log', 
-           4:'mutation/'+sample+'_SNP.log', 
-           5:'static/'+sample+'_static.log'}
-    
-    for i in range(1,6):
-        if not op.exists(out_dir+'/'+sample+'/'+step[i]):
-            return i
-    else:
-        return 0
+
 
 def checkDir(path):
     if not op.exists(path):
