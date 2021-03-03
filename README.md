@@ -1,42 +1,120 @@
-DSBS
+DSBS analyzer
 ==========
 
-Double-Strand Bisulfite Sequencing (DSBS) was developed for for simultaneous and precise identification of both DNA methylation and SNVs.
+DSBS analyzer is a pipeline to analyzing Double Strand Bisulfite Sequencing data, which could simultaneously identify SNVs and evaluate DNA methylation levels in a single base resolution. In DSBS, bisulfite-converted Watson strand and reverse complement of bisulfite-converted Crick strand derived from the same double-strand DNA fragment were sequenced in read 1 and read 2, and aligned to the same position on reference genome. By simultaneous analyzing the sequence of read 1 and read 2, the sequence and DNA methylation state of DNA fragment could be deduced.
 
 Schematic
------------------------------------
+---------
 
 <img src="https://github.com/tianguolangzi/pic/blob/main/raw.png"  width="50%" height="50%" /><br/>
 
 
-Features
---------
+DSBS analyzer Usage
+-------------------
+### QuickStart
+
+`python3 DSBS_analyzer.py --config DSBS.config  -a /data_path/*_1.fq.gz  -b /data_path/*_2.fq.gz   -o  /outdir  & `
+
+`python3 DSBS_analyzer.py`
+
+```
+                                                
+             m                                      m                           
+             |                                      |                           
+        AGCTACGT  bisulfite treat   -->  A  G {T} TACGT        AGTTACGT         
+        ||||||||-------------------->|   |  |  |  |||||                         
+        TCGATGCA        (C>T)       -->  T {T} G  ATGCA        AACTAGCT         
+              |                                      |                        
+              m                                      m                        
+        C>T  1) bisulfite conversion ?                                          
+             2) mutation ?                                                      
+             3) sequencing errors ?                                             
+    
+usage: DSBS_analyzer.py [-h] [--config CONFIG] -a [FQ1 [FQ1 ...]] -b
+                                  [FQ2 [FQ2 ...]] [-r REF] 
+                                  [-k [KNOWNSITES [KNOWNSITES ...]]] [-d DEPTH] 
+				  [-q CLEANQUALITY] [--gapsize GAPSIZE] [--fastquniq]  
+				  [--remove_tmp] [--bissnp] [-t CPU] [--pp PP] -o
+                                  OUTDIR [--qsub]
+
+  -h, --help            show this help message and exit
+  --config CONFIG       config file
+  -a [FQ1 [FQ1 ...]], --fq1 [FQ1 [FQ1 ...]]
+                        Fastq1(s), Space separation
+  -b [FQ2 [FQ2 ...]], --fq2 [FQ2 [FQ2 ...]]
+                        Fastq2(s), Space separation
+  -r REF, --ref REF     refrence
+  -k [KNOWNSITES [KNOWNSITES ...]], --knownsites [KNOWNSITES [KNOWNSITES ...]]
+                        knownsites
+  -d DEPTH, --depth DEPTH
+                        the minimum depth , default is 4
+  -q CLEANQUALITY, --cleanquality CLEANQUALITY
+                        quality when clening the fastq
+  --gapsize GAPSIZE     the size of insert or del, default is 3
+  --fastquniq           rmdup fastq before cleanning fastq
+  --remove_tmp          rm temp file
+  --bissnp              bisSNP
+  -t CPU, --cpu CPU     thread, default is 20
+  --pp PP               1,execute ,0,skip. 1)qualimap, 2)clean, 3)align,
+                        4)dealBam, 5)call mutation and methylation , default 11111
+  -o OUTDIR, --outdir OUTDIR
+                        outdir
+  --qsub                use qsub
+```
 
 
 
-### WGS vs DSBS
-* Coverage in whole genome
-* Coverage in non-repeat region
-* Coverage in Exome region
-* Snp Overlap between WGS and DSBS
+#### config
 
-### WGBS vs DSBS
-* Coverage in all CpG sites of whole genome
-* Coverage in all CpG sites of non-repeat region
-* Coverage in all CpG sites of repeat region
-* Methylation Pearson in WGBS and DSBS	
+`cat  DSBS.config`
 
-### BS-snper vs FreeBayes vs bcftools vs VarScan vs GATK vs DSBS
-* [BS-snper](https://github.com/hellbelly/BS-Snper) 
-* [FreeBayes](https://github.com/ekg/freebayes) 
-* [bcftools](https://github.com/samtools/bcftools) 
-* [VarScan](https://github.com/dkoboldt/varscan) 
-* [GATK](https://github.com/broadinstitute/gatk) 
-* [DSBS](https://github.com/tianguolangzi/DSBS)
-	
+Here is the example of config file which configured the path of softwares and databases and  software operating environment. Y For those necessary softwares and databases, you are on your own. It is important to note that each software needs to have execute permission(`chmod a+x soft`).
+
+```
+#soft
+
+java:/public/soft/jdk1.8.0_111/bin/java:soft
+java1.6:/usr/bin/java:soft
+python3:/public/soft/python3:soft
+
+fastqc:/public/soft/fastqc:soft
+qualimap:/public/soft/qualimap_v2.2.1/qualimap:soft
+
+#clean,rmdup
+fastuniq:/public/soft/FastUniq/fastuniq:soft
+cutadapt:/public/softcutadapt:soft
+filter_fq:/public/soft/filter_fq.py:soft
+stdmap_awk:/public/soft/stdmap.awk:soft
+diffmap_awk:/public/soft/diffmap.awk:soft
+
+bsmap:/public/soft/bsmap2.7/bsmap:soft
+bissnp:/public/soft/BisSNP/BisSNP-0.82.2.jar:soft
+
+#qsub
+job_sub_py_2:/public/soft/job_sub_py_2.py:soft
+
+#index, sort, merge, split 
+samtools:/public/soft/samtools:soft
+picard:/public/soft/picard.jar:soft
 
 
-## Dependencies
+#call SNP and  methy
+DSBS:/public/soft/DSBS.py:soft
+#resource
+refDir:/public/database/hg19/:resource
+ref:/public/database/hg19/hg19.fa:resource
+1000G_omni:/public/database/1000G_omni2.5.hg19.sites.vcf:resource
+1000G_phase1:/public/database/1000G_phase1.snps.high_confidence.hg19.sites.vcf:resource
+dbsnp:/public/database/dbsnp_138.hg19.vcf:resource
+dbsnp_gz:/public/database/dbsnp_138.hg19.vcf.gz:resource
+hapmap:/public//database/hapmap_3.3.hg19.sites.vcf:resource
+```
+
+
+
+Dependencies
+------------
+
 DSBS depends on 
 * [python3+](https://www.python.org/)
 * [termcolor](https://pypi.python.org/pypi/termcolor/1.1.0)
@@ -125,130 +203,18 @@ python3 DSBS.py   chr1.merge.sorted.rmdup.realigned.recal.bam  --maxBp 50  --min
 `
 
 #### Batch jobs
-use [job_sub_py_2](https://github.com/tianguolangzi/ZK-Tools)  based on [PBS](https://github.com/pbspro/pbspro) to  deliver the jobs
+use job_sub_py_2.py which based on PBS to  deliver the jobs
 
 `
 for i in {1..22} X Y M;
 do 
-job_sub_py_2 --jobname chr$i --cpu 2 --work "python3 ~/zhangkun/bin/DSBS.py 	/public/home/zhangkun/work/DSBS/hg19/DSBS_NEW_merge/bam/chr$i.merge.sorted.rmdup.realigned.recal.bam --maxBp 50 --minVaf 0.1  -q --cpu 40  -o /public/home/zhangkun/work/DSBS/hg19/DSBS_NEW_merge/script6 -g   ~/public/database/hg19/chr$i.fa  --Chr chr$i -d 	dbsnp_138.hg19.vcf.gz "
+job_sub_py_2 --jobname chr$i --cpu 2 --work "python3 /public/soft/DSBS.py 	/datapath/chr$i.merge.sorted.rmdup.realigned.recal.bam --maxBp 50 --minVaf 0.1  -q --cpu 40  -o /outdir -g   ~/public/database/hg19/chr$i.fa  --Chr chr$i -d 	/public/database/dbsnp_138.hg19.vcf.gz "
 done
 `
 
-## DSBS pipeline Usage
 
-### QuickStart
-`python3 DSBS_pipeline.V1.py -a fq1(s) -b fq2(s) --ref hg19.fa --config  DSBS.config -o outdir`
-
-`python3 DSBS_pipeline.V1.py`
-
-```
-                                                
-             m                                      m                           
-             |                                      |                           
-        AGCTACGT  bisulfite treat   -->  A  G {T} TACGT        AGTTACGT         
-        ||||||||-------------------->|   |  |  |  |||||                         
-        TCGATGCA        (C>T)       -->  T {T} G  ATGCA        AACTAGCT         
-              |                                      |                        
-              m                                      m                        
-        C>T  1) bisulfite conversion ?                                          
-             2) mutation ?                                                      
-             3) sequencing errors ?                                             
-    
-usage: DSBS_pipeline.V1.py [-h] [--config CONFIG] -a [FQ1 [FQ1 ...]] -b
-                                  [FQ2 [FQ2 ...]] [-r REF] 
-                                  [-k [KNOWNSITES [KNOWNSITES ...]]] [-d DEPTH] 
-				  [-q CLEANQUALITY] [--gapsize GAPSIZE] [--fastquniq]  
-				  [--remove_tmp] [--bissnp] [-t CPU] [--pp PP] -o
-                                  OUTDIR [--qsub]
-DSBS_pipeline.V1.py: error: the following arguments are required: -a/--fq1, -b/--fq2, -o/--outdir
-  -h, --help            show this help message and exit
-  --config CONFIG       config file
-  -a [FQ1 [FQ1 ...]], --fq1 [FQ1 [FQ1 ...]]
-                        Fastq1(s), Space separation
-  -b [FQ2 [FQ2 ...]], --fq2 [FQ2 [FQ2 ...]]
-                        Fastq2(s), Space separation
-  -r REF, --ref REF     refrence
-  -k [KNOWNSITES [KNOWNSITES ...]], --knownsites [KNOWNSITES [KNOWNSITES ...]]
-                        knownsites
-  -d DEPTH, --depth DEPTH
-                        the minimum depth , default is 4
-  -q CLEANQUALITY, --cleanquality CLEANQUALITY
-                        quality when clening the fastq
-  --gapsize GAPSIZE     the size of insert or del, default is 3
-  --fastquniq           rmdup fastq before cleanning fastq
-  --remove_tmp          rm temp file
-  --bissnp              bisSNP
-  -t CPU, --cpu CPU     thread, default is 20
-  --pp PP               1,execute ,0,skip. 1)qualimap, 2)clean, 3)align,
-                        4)dealBam, 5)call mutation and methylation 默认 11111
-  -o OUTDIR, --outdir OUTDIR
-                        outdir
-  --qsub                use qsub
-```
-
-#### Run DSBS_pipeline.V1.py
-`python3 DSBS_pipeline.V1.py --config DSBS.config  -a /data_path/*_1.fq.gz  -b /data_path/*_2.fq.gz  --fastquniq   --bissnp  -t 40  --pp 11111 -o  /outdir/ --qsub  & `
-
-#### config
-
-`cat  DSBS.config`
-
-Here is the example of config file which configured the path of softwares and databases and  software operating environment. Y For those necessary softwares and databases, you are on your own. It is important to note that each software needs to have execute permission(`chmod a+x soft`).
-
-```
-#soft
-
-java:/public/home/zhangkun/bin/java_bin/jdk1.8.0_111/bin/java:soft
-java1.6:/usr/bin/java:soft
-python3:/public/bin/python3:soft
-
-fastqc:/public/home/public/bin/fastqc:soft
-qualimap:/public/home/zhangkun/bin/qualimap_v2.2.1/qualimap:soft
-#muiltqc:/public/software/Python3.5/bin/multiqc:soft
-
-#clean,rmdup
-fastuniq:/public/home/zhangkun/bin/bin/FastUniq/fastuniq:soft
-cutadapt:/public/bin/cutadapt:soft
-filter_fq:/public/home/zhangkun/bin/filter_fq.py:soft
-stdmap_awk:/public/home/zhangkun/work/DSBS/bin/stdmap.awk:soft
-diffmap_awk:/public/home/zhangkun/work/DSBS/bin/diffmap.awk:soft
-
-bsmap:/public/home/zhangkun/work/DSBS/bin/bsmap2.7/bsmap:soft
-bissnp:/public/home/zhangkun/work/DSBS/bin/BisSNP/BisSNP-0.82.2.jar:soft
-
-#qsub
-job_sub_py_2:/public/home/zhangkun/bin/python3_bin/job_sub_py_2.py:soft
-
-#index, sort, merge, split 
-samtools:/public/home/zhangkun/bin/samtools:soft
-picard:/public/home/zhangkun/bin/picard.jar:soft
-
-
-#call SNP and  methy
-DSBS:/public/home/zhangkun/bin/DSBS.py:soft
-#resource
-refDir:/public/home/zhangkun/database/hg19/:resource
-ref:/public/home/zhangkun/database/hg19/hg19.fa:resource
-1000G_omni:/public/home/zhangkun/database/1000G_omni2.5.hg19.sites.vcf:resource
-1000G_phase1:/public/home/zhangkun/database/1000G_phase1.snps.high_confidence.hg19.sites.vcf:resource
-dbsnp:/public/home/zhangkun/database/dbsnp_138.hg19.vcf:resource
-dbsnp_gz:/public/home/zhangkun/database/dbsnp_138.hg19.vcf.gz:resource
-hapmap:/public/home/zhangkun/database/hapmap_3.3.hg19.sites.vcf:resource
-```
 
 Contributions and suggestions for new features are welcome, as are bug reports! Please create a new [issue](https://github.com/tianguolangzi/DSBS/issues) for any of these, including example reports where possible.
 
-If any question, please :
-[@Zhang Kun](https://github.com/tianguolangzi) (tianguolangzi@yahoo.com)
-
-
-
-## Contributors
-* Project lead and main author: [@Liang Jialong](https://github.com/lll)
-* Project lead and main author: [@Zhang Kun](https://github.com/tianguolangzi)
-
-Thanks to my friends who give me a hand with project:
-* [@Li Xianfeng](https://github.com/xflicsu)
-* [@Teng Huajing]()
 
 
