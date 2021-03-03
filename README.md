@@ -1,5 +1,5 @@
 
-![image](https://github.com/tianguolangzi/pic/blob/main/1.png)
+![image](https://github.com/tianguolangzi/pic/blob/main/1.png){:height="50%" width="50%"}
 |Software|version|website|
 |---------|---------|-------|
 |Fastuniq|1.1|https://homes.cs.washington.edu/~dcjones/fastq-tools|
