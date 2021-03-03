@@ -208,7 +208,7 @@ use job_sub_py_2.py which based on PBS to  deliver the jobs
 `
 for i in {1..22} X Y M;
 do 
-job_sub_py_2 --jobname chr$i --cpu 2 --work "python3 /public/soft/DSBS.py 	/datapath/chr$i.merge.sorted.rmdup.realigned.recal.bam --maxBp 50 --minVaf 0.1  -q --cpu 40  -o /outdir -g   ~/public/database/hg19/chr$i.fa  --Chr chr$i -d 	/public/database/dbsnp_138.hg19.vcf.gz "
+python3 job_sub_py_2.py --jobname chr$i --cpu 2 --work "python3 /public/soft/DSBS.py 	/datapath/chr$i.merge.sorted.rmdup.realigned.recal.bam --maxBp 50 --minVaf 0.1  -q --cpu 40  -o /outdir -g   ~/public/database/hg19/chr$i.fa  --Chr chr$i -d 	/public/database/dbsnp_138.hg19.vcf.gz "
 done
 `
 
