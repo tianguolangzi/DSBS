@@ -1,24 +1,6 @@
 #!/public/software/python3
 #coding=utf-8
-#author: Zhang Kun
-#email: tianguolangzi@yahoo.com
-#vesion: 0.3
-#date:2017-4-7 14:00
-#too yang too naive
 
-
-
-
-
-##加载的程序
-##/public/home/jcli/zhangkun/bin/python3_bin/job_sub_py_2.py            提交任务
-##/public/home/jcli/zhangkun/bin/python3_bin/filter_fq.py               筛选fastq
-##/public/home/jcli/zhangkun/bin/python3_bin/DSBS.py                    找突变
-##/public/home/jcli/zhangkun/bin/python3_bin/annovar.py                 注释
-##/public/home/jcli/zhangkun/bin/python3_bin/DSBS_plot.py               甲基化统计与作图
-##/public/home/jcli/zhangkun/bin/python3_bin/K2K.py                     查找overlap
-##/public/home/jcli/zhangkun/bin/python3_bin/BsReal.py                  read数据转换
-##/public/home/jcli/zhangkun/bin/python3_bin/SamReal2Bs.py              Bam数据转换
 
 from termcolor import colored
 import sys, os, gzip, time
@@ -308,7 +290,7 @@ def cleanFQ(fq1,fq2,cleanDir):
     CFq1s=[]
     CFq2s=[]
     if fastquniq: 
-        rmdupFq(fq1,fq2,cleanDir)  #提前处理dup
+        rmdupFq(fq1,fq2,cleanDir) 
         tmp1,tmp2=[],[]
         for a,b in zip(fq1,fq2):
             subfq=op.basename(subStr(a,b))
@@ -361,7 +343,7 @@ def filterFq(Fq1,Fq2):
     import filter_fq
     subfq=op.basename(subStr(Fq1,Fq2))
     if  not op.exists(outdir+'/log/'+subfq+".filterFq.log"): 
-        if not remove_tmp:                #2017-12-12 删除临时文件
+        if not remove_tmp:             
             signal =filter_fq.start(40,Fq1,Fq2,False)
         else:
             signal =filter_fq.start(40,Fq1,Fq2,True)
@@ -687,9 +669,7 @@ def dealBam(Bams):
 
 #step 4 get mutation file()
 def getSnpAndMeth(outdir):
-    #cmd= '''python3 /public/home/jcli/zhangkun/bin/python3_bin/job_sub_py_2.py /public/home/jcli/zhangkun/bin/python3_bin/DSBS.py  /public/home/jcli/zhangkun/work/DSBS/chr_BAM/chr$i/%s.DSBS-Hela1.bsmap-pe.sort_rmdup.bam -g ~/public/database/hg19/%s.fa --Chr %s '''%(CHR,CHR,CHR)
-    #运行的时候使用python3
-    #import DSBS 
+
     global qsub
     CHR= ['chr'+str(i) for i in range(1,23)] + ['chrX', 'chrY']
     snpCommand=methyCommand=''
@@ -821,7 +801,7 @@ def main():
     purpose()
     parser = get_parser()
     args = parser.parse_args()
-    global config,fq1,fq2,ref,adapter,cpu,pp,outdir,qsub,depth,fastquniq,configDict,bissnp,knownsites,gapsize,cleanquality,,remove_tmp
+    global config,fq1,fq2,ref,adapter,cpu,pp,outdir,qsub,depth,fastquniq,configDict,bissnp,knownsites,gapsize,cleanquality,remove_tmp
     
     config      =  args.config
     fq1         =  args.fq1
