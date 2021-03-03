@@ -1,10 +1,5 @@
-#!/public/home/jcli/public/bin/python3
+#!/public/bin/python3
 # -*- coding: utf-8 -*-
-#author: Zhang Kun
-#vesion: 2.0
-#date:2016-8-20
-#email:tianguolangzi@yahoo.com
-#too yang too naive
 import sys,getopt,os,gzip,time,re
 def usage():
     print('''\033[01;33m
@@ -13,19 +8,18 @@ def usage():
                                     1: which is chosed by the program
                                     node_name:the one of all nodes
                     --cpu       deaufalt is 1
-                    --jobname   deaufalt is /public/home/jcli/temp/jobs/%s/%s
+                    --jobname   deaufalt 
                     --work      is necessary
                     --mem       deaufalt is none
-                    --config    deaufalt is /public/home/jcli/zhangkun/bin/python3_bin/node_config
                     --auto      deaufalt is Y
                                     Y :node which is chosed by the PBS
                                     N :node which is chosed by the program
-                    -h/--help'''%(sys.argv[0],time.strftime('%Y-%m-%d-%H'),time.strftime('%H-%M-%S')))
+                    -h/--help'''
     print('''\033[01;32m
 eg:
-   python-->  job_sub_py --node fat6 --cpu 40 --jobname /public/home/jcli/temp/jobs/test --work "python3 /public/home/jcli/temp/python3/timer.py"
-   shell--->  job_sub_py --node fat6 --cpu 40 --jobname /public/home/jcli/temp/jobs/test --work "for i in {1..10}; do echo \$i ;done"
-   python-->  job_sub_py --cpu 40 --auto N ---mem 40G --work "python3 /public/home/jcli/temp/python3/timer.py"
+   python-->  job_sub_py --node node1 --cpu 40 --jobname /workpath/test --work "python3 /public/bin/test.py"
+   shell--->  job_sub_py --node node1 --cpu 40 --jobname /workpath/test --work "for i in {1..10}; do echo \$i ;done"
+   python-->  job_sub_py --cpu 40 --auto N ---mem 40G --work "python3 /public/bin/test.py"
         ''')
 
 def option():
@@ -64,7 +58,8 @@ def option():
         sys.exit(2)
 
     if "jobname" not in globals():
-        path = "/public/home/jcli/temp/jobs/%s"%time.strftime('%Y-%m-%d-%H')
+        path0=os.path.split(os.path.realpath(__file__))[0])
+        path = path0+'/'+"%s"%time.strftime('%Y-%m-%d-%H')
         if not os.path.exists(path):
             os.makedirs(path)
         jobname = path + "/" + time.strftime('%H-%M-%S')
@@ -90,9 +85,6 @@ def option():
         if int(cpu) >48:
             cpu = "48"
 
-    if "config" not in globals():
-        if os.path.exists("/public/home/zhangkun/bin/python3_bin/node_config"):
-            config = "/public/home/zhangkun/bin/python3_bin/node_config"
     node_infor = get_node_infor()
     if "auto" not in globals():
         auto = "Y"
@@ -150,14 +142,7 @@ def get_node_infor():
             node_infor[temp_infor[0]] = {"state":"","phymem":"","ncpus":"","allmem":"","resi":"","tasks":"","max_cpu":"0","max_mem":"0","able_state":"able","priority":"low"}
         for i,j in zip(["state","phymem","ncpus","allmem","resi","tasks"],temp_infor[1:]): 
             node_infor[temp_infor[0]][i] = j
-    #print(config)
-    if config:
-        with open(config,"r") as A1:
-            #fat6   48  516 able/disable    high/low
-            temp = [line.strip().split() for line in A1.readlines()[1:]]
-            for infor  in temp:
-                if infor[0] in node_infor: 
-                    for i,j in zip(["max_cpu","max_mem","able_state","priority"],infor[1:]): node_infor[infor[0]][i]=j
+
     return node_infor
 
 def creat_job_sub_sh():
