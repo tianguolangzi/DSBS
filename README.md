@@ -1,46 +1,14 @@
+DSBS
+==========
 
-<img src="https://github.com/tianguolangzi/pic/blob/main/1.png"  width="30%" height="30%" /><br/>
-|Software|version|website|
-|---------|---------|-------|
-|Fastuniq|1.1|https://homes.cs.washington.edu/~dcjones/fastq-tools|
-|Fastqc|0.11.5|http://www.bioinformatics.babraham.ac.uk/projects/FastQC|
-|Cutadapt|1.11|https://github.com/marcelm/cutadapt|
-|Trim_galore|0.4.2|http://www.bioinformatics.babraham.ac.uk/projects/trim_galore|
-|Bsmap|2.74|https://code.google.com/archive/p/bsmap/|
-|Samtools|1.8|http://samtools.sourceforge.net/|
-|Picard|2.9|http://broadinstitute.github.io/picard/|
-|Bissnp|0.82.2|https://sourceforge.net/projects/bissnp/|
-|Bamqc||https://github.com/s-andrews/BamQC|
-|Qualimap|2.2.1|http://qualimap.bioinfo.cipf.es/|
-|VarScan|2.3.9|http://varscan.sourceforge.net/|
-|GATK|3.8|https://software.broadinstitute.org/gatk/|
-|Freebayes|1.1.0-50|https://github.com/ekg/freebayes/releases|
-|MethylDackel|0.3|https://github.com/dpryan79/MethylDackel/releases|
-|Bcftools|0.1.19|http://www.htslib.org/doc/bcftools.html|
-|BS-Snper||https://github.com/hellbelly/BS-Snper|
-|BWA|0.7.7|https://github.com/lh3/bwa/releases|
-|Tabix|0.2.5|http://www.htslib.org/doc/tabix.html|
-|hg19.fa|hg19|ftp://ftp.broadinstitute.org/bundle/hg19/|
-|dbsnp|138|ftp://ftp.broadinstitute.org/bundle/hg19/|
-|Hapmap|3.3|ftp://ftp.broadinstitute.org/bundle/hg19/|
-|Mills_and_1000G_gold_standard.indels|hg19|ftp://ftp.broadinstitute.org/bundle/hg19/|
-|1000G_phase1.snps|hg19|ftp://ftp.broadinstitute.org/bundle/hg19/|
-|1000G_phase1.indels|hg19|ftp://ftp.broadinstitute.org/bundle/hg19/|
-|1000G_omni2.5|hg19|ftp://ftp.broadinstitute.org/bundle/hg19/|
-|R|3.2.3|https://www.r-project.org/|
-|Vcftools|0.1.13|http://vcftools.sourceforge.net/|
-|Perl|5.20.3|https://www.perl.org/|
-|Java|1.6&&1.8|https://java.com/download|
-|Multiqc|0.9|https://github.com/ewels/MultiQC/releases|
+Double-Strand Bisulfite Sequencing (DSBS) was developed for for simultaneous and precise identification of both DNA methylation and SNVs.
+
+Schematic
+-----------------------------------
+
+<img src="https://github.com/tianguolangzi/pic/blob/main/raw.png"  width="50%" height="50%" /><br/>
 
 
-
-## DSBS
-
-DSBS is a special tool to call variants and methylations for the DSBS project.
-DSBS is written in Python3.5 (tested with v3.4 / v3.5 ).
-
-## Citation
 
 
 ### WGS vs DSBS
