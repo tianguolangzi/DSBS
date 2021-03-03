@@ -451,12 +451,12 @@ def sub_snpOutput(ID,START,END,BAM, GENOME,dbsnp, CHR, snpList,methyList,indelLi
         #a read read can have at most one insert or del
         if cigarstring.count('I') >maxIndel or cigarstring.count('D') >maxIndel:
             #if debug:
-            #    print(read.qname,'indel个数大于1',)
+            #    print(read.qname,'too much indel')
             continue
         
         #filter 7
         #a read which contains too much N  should be discarded
-        realseq=read.query_sequence.upper()  #真实序列
+        realseq=read.query_sequence.upper()  
         if realseq.count('N') >maxN:
             #if debug:
             #    print(read.qname,'too much N')
@@ -1118,44 +1118,6 @@ def snpOutput(bam, genomeFile,dbsnp, CHR,outDir,cpu=50,maxDistance=50, maxLen=20
     chgFile          = open('{}/{}.chgFile.txt'.format(outDir,root),        'w')
     chhFile          = open('{}/{}.chhFile.txt'.format(outDir,root),        'w')
 
-
-    ###标准化输出格式VCFv4.1  #20171017
-    VCF_header="""##fileformat=VCFv4.1
-##fileDate={fileDate}
-##source=DSBS {version}
-##reference={reference}
-##commandline={commandline}
-##INFO=<ID=NS,Number=1,Type=Integer,Description="Number of samples with data">
-##INFO=<ID=DP,Number=1,Type=Integer,Description="Total read depth at the locus">
-##INFO=<ID=DPB,Number=1,Type=Float,Description="Total read depth per bp at the locus; bases in reads overlapping / bases in haplotype">
-##INFO=<ID=AC,Number=A,Type=Integer,Description="Total number of alternate alleles in called genotypes">
-##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
-##INFO=<ID=AF,Number=A,Type=Float,Description="Estimated allele frequency in the range (0,1]">
-##INFO=<ID=RO,Number=1,Type=Integer,Description="Reference allele observation count, with partial observations recorded fractionally">
-##INFO=<ID=AO,Number=A,Type=Integer,Description="Alternate allele observations, with partial observations recorded fractionally">
-##INFO=<ID=PRO,Number=1,Type=Float,Description="Reference allele observation count, with partial observations recorded fractionally">
-##INFO=<ID=PAO,Number=A,Type=Float,Description="Alternate allele observations, with partial observations recorded fractionally">
-##INFO=<ID=QR,Number=1,Type=Integer,Description="Reference allele quality sum in phred">
-##INFO=<ID=QA,Number=A,Type=Integer,Description="Alternate allele quality sum in phred">
-##INFO=<ID=QA,Number=A,Type=Integer,Description="Alternate allele quality sum in phred">
-##INFO=<ID=PQR,Number=1,Type=Float,Description="Reference allele quality sum in phred for partial observations">
-##INFO=<ID=PQA,Number=A,Type=Float,Description="Alternate allele quality sum in phred for partial observations">
-##INFO=<ID=SRF,Number=1,Type=Integer,Description="Number of reference observations on the forward strand">
-##INFO=<ID=SRR,Number=1,Type=Integer,Description="Number of reference observations on the reverse strand">
-##INFO=<ID=SAF,Number=A,Type=Integer,Description="Number of alternate observations on the forward strand">
-##INFO=<ID=SAR,Number=A,Type=Integer,Description="Number of alternate observations on the reverse strand">
-##INFO=<ID=SRP,Number=1,Type=Float,Description="Strand balance probability for the reference allele: Phred-scaled upper-bounds estimate of th
-##INFO=<ID=SAP,Number=A,Type=Float,Description="Strand balance probability for the alternate allele: Phred-scaled upper-bounds estimate of th
-##INFO=<ID=AB,Number=A,Type=Float,Description="Allele balance at heterozygous sites: a number between 0 and 1 representing the ratio of reads
-##INFO=<ID=ABP,Number=A,Type=Float,Description="Allele balance probability at heterozygous sites: Phred-scaled upper-bounds estimate of the p
-##INFO=<ID=RUN,Number=A,Type=Integer,Description="Run length: the number of consecutive repeats of the alternate allele in the reference geno
-##INFO=<ID=RPP,Number=A,Type=Float,Description="Read Placement Probability: Phred-scaled upper-bounds estimate of the probability of observin
-##INFO=<ID=RPPR,Number=1,Type=Float,Description="Read Placement Probability for reference observations: Phred-scaled upper-bounds estimate of
-##INFO=<ID=EPP,Number=A,Type=Float,Description="End Placement Probability: Phred-scaled upper-bounds estimate of the probability of observing
-""".format(fileDate=time.strftime("%Y%m%d",time.localtime()),version=__version__,reference=genomeFile,commandline="python3 {script} {bam} --genomeFile {genomeFile} --dbsnp {dbsnp} --Chr {CHR} --outDir {outDir} --cpu {cpu} --maxDistance {maxDistance} --maxLen {maxLen} --minLen {minLen} --minReadQual {minReadQual} --minReadQualN {minReadQualN} --maxN {maxN} --maxSeqErr {maxSeqErr} --maxSnp {maxSnp} --maxIndel {maxIndel} --maxBp {maxBp} --maxMut {maxMut} --minQual {minQual} --minVaf {minVaf} --secAlign {secAlign} --quite {quite} --debug {debug}".format(script=sys.argv[0],bam=bam, genomeFile=genomeFile,dbsnp=dbsnp, CHR=CHR,outDir=outDir,cpu=cpu,maxDistance=maxDistance, maxLen=maxLen,minLen=minLen,minReadQual=minReadQual,minReadQualN=minReadQualN,maxN=maxN,maxSeqErr=maxSeqErr,maxSnp=maxSnp,maxIndel=maxIndel,maxBp=maxBp,maxMut=maxMut,minQual=minQual,minVaf=minVaf,secAlign=secAlign,quite=quite,debug=debug))
-
-    #snpFile.write(VCF_header)
-    #indelFile.write(VCF_header)
 
     for i in range(nu+1):
         #if i !=3:continue
