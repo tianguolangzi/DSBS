@@ -775,7 +775,7 @@ def get_parser():
     parser.add_argument('--remove_tmp', action='store_true',default='False',help='rm temp file')
     parser.add_argument('--bissnp',      action='store_true',default=False, help='bisSNP')
     parser.add_argument('-t','--cpu',      type=int,    default=20,      help='thread, default is 20')
-    parser.add_argument('--pp',            default='11111',            help='1,execute ,0,skip. 1)qualimap, 2)clean, 3)align, 4)dealBam, 5)call mutation and methylation  默认 11111')
+    parser.add_argument('--pp',            default='11111',            help='1,execute ,0,skip. 1)qualimap, 2)clean, 3)align, 4)dealBam, 5)call mutation and methylation, default is 11111')
     parser.add_argument('-o',"--outdir",   required='true',              help='outdir')
     parser.add_argument('--qsub'    ,      action='store_true',          help='use qsub ')
     return parser
