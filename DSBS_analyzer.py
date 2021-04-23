@@ -340,6 +340,7 @@ def bsmap(Fq1,Fq2,AlignDir):
     tmplogs,commands={},{}
     for a,b in zip(Fq1,Fq2):
         subfq=subStr(a,b)
+        #print('subfq',subfq)
         subfq=os.path.basename(subfq)
         cleanq1=outdir+"/clean/"+subfq +".1.clean.fq"
         cleanq2=outdir+"/clean/"+subfq +".2.clean.fq"
@@ -351,7 +352,7 @@ def bsmap(Fq1,Fq2,AlignDir):
             tmplog=outdir+'/log/'+subfq+".bsmap.log"
             tmplogs[bam]=tmplog
             commands[bam]=command
-    if len(commands) >1:
+    if len(commands) >=1:
         systemRun2(tmplogs,commands,2)
     
 
@@ -378,7 +379,7 @@ def pickUpSam(bams):
     if qsub:
         qsubRun(tmplogs,commands,3,3600*4)
     else:
-        if len(commands) > 1:
+        if len(commands) >= 1:
             systemRun2(tmplogs,commands,4)
 
 def bisSNP(inbams):
@@ -424,7 +425,7 @@ def bisSNP(inbams):
         withRGBam=inbam[:-3]+"withRG.bam"
         tmplog=outdir+'/log/'+op.basename(intervals)+'.log'
         if  not op.exists(tmplog): 
-            command= """{java} -Xmx50g -jar {bissnp} -R {ref} -I {withRGBam} -T BisulfiteRealignerTargetCreator {known}  -o {intervals} -nt 50""".format(java=configDict['java1.6'],bissnp=configDict['bissnp'],ref=ref,known="-known\t" + "\t-known\t".join(knownsites),withRGBam=withRGBam,intervals=intervals)
+            command= """{java} -Xmx2g -jar {bissnp} -R {ref} -I {withRGBam} -T BisulfiteRealignerTargetCreator {known}  -o {intervals} -nt 10""".format(java=configDict['java1.6'],bissnp=configDict['bissnp'],ref=ref,known="-known\t" + "\t-known\t".join(knownsites),withRGBam=withRGBam,intervals=intervals)
             tmplogs[intervals]=tmplog
             commands[intervals]=command
     if len(commands)>0:
@@ -462,7 +463,7 @@ def bisSNP(inbams):
         realignedBam=withRGBam[:-3]+"realigned.bam"
         tmplog=outdir+'/log/'+op.basename(recalFile)[:-3]+'log'
         if  not op.exists(tmplog): 
-            command="""{java} -Xmx10g -jar {bissnp} -R {ref} -I {realignedBam} -T BisulfiteCountCovariates {knownSites}  -cov ReadGroupCovariate -cov QualityScoreCovariate  -cov CycleCovariate  -recalFile {recalFile} -nt 50""".format(java=configDict['java1.6'],bissnp=configDict['bissnp'],realignedBam=realignedBam,ref=ref,knownSites="-knownSites\t" + "\t-knownSites\t".join(knownsites),recalFile=recalFile)
+            command="""{java} -Xmx2g -jar {bissnp} -R {ref} -I {realignedBam} -T BisulfiteCountCovariates {knownSites}  -cov ReadGroupCovariate -cov QualityScoreCovariate  -cov CycleCovariate  -recalFile {recalFile} -nt 10""".format(java=configDict['java1.6'],bissnp=configDict['bissnp'],realignedBam=realignedBam,ref=ref,knownSites="-knownSites\t" + "\t-knownSites\t".join(knownsites),recalFile=recalFile)
             tmplogs[recalFile]=tmplog
             commands[recalFile]=command
     if len(commands)>0:
@@ -577,7 +578,7 @@ def splitBam(Bam):
 
 def bamQC(Bam):
     if not  op.exists(outdir+'/log/'+op.basename(Bam)+".bamQC.log"): 
-        command="{qualimap} bamqc -bam {Bam} --java-mem-size=40G ".format(qualimap=configDict['qualimap'], Bam=Bam)
+        command="{qualimap} bamqc -bam {Bam} --java-mem-size=10G ".format(qualimap=configDict['qualimap'], Bam=Bam)
         systemRun(command)
         writeLog(outdir+'/log/'+op.basename(Bam)+".bamQC.log",'it was finished\n')
     
@@ -686,11 +687,8 @@ def getSnpAndMeth(outdir):
                     systemRun(command)
                     writeLog(tmplog,'it was finished\n')
                 else:
-                    if  'beijing' in config:
-                        command1=" {python3} {job_sub_py_2}  --work  'source ~/.bashrc-anaconda3.bak ; {command}  &&  echo it was finished >  {tmplog}' ".format(python3=configDict['python3'], job_sub_py_2=configDict['job_sub_py_2'],  command=command, tmplog =tmplog)
-
-                    if  'anzhen' in config:
-                        command1=" {python3} {job_sub_py_2}  --work  '{command}  &&  echo it was finished >  {tmplog}' ".format(python3=configDict['python3'], job_sub_py_2=configDict['job_sub_py_2'],  command=command, tmplog =tmplog)
+                    #if  'anzhen' in config:
+                    command1=" {python3} {job_sub_py_2}  --work  '{command}  &&  echo it was finished >  {tmplog}' ".format(python3=configDict['python3'], job_sub_py_2=configDict['job_sub_py_2'],  command=command, tmplog =tmplog)
                     systemRun(command1)
                     time.sleep(10)
         snpCommand  +="> {}/{}/{}.Snp.vcf  ".format(outdir,Path,Path)
@@ -746,15 +744,6 @@ def getSnpAndMeth(outdir):
                 for k in sorted(METHY[chr].keys(),key=int):
                     A1.write('{}\t{}\t{}\t{}\n'.format(chr,k,METHY[chr][k]['con'],"\t".join(list(map(str,METHY[chr][k]['dep'])))))
                     
-    #File=out_dir+'/'+sample+'/chr_BAM/'+CHR + '/' + 'snp_meth.log'
-    #Con=CHR+'\tfinished\n'
-    #writeLog(File,Con)
-
-    #path=out_dir+'/'+sample+'/'+'SNP'
-    #checkDir(path)
-    #File=out_dir+'/'+sample+'/'+'SNP/'+sample+'_SNP.log'
-    #Con='step4  finished\n'
-    #writeLog(File,Con)
 
 
 
@@ -856,13 +845,14 @@ def main():
     knownsites=tmpKnownsite
 
     checkDir(outdir)
-    for d in ['rawdata','fastqc','clean','align','nomal','chr_BAM','snpmeth','static','log']:checkDir(outdir+"/"+d)
+    for d in ['rawdata','fastqc','clean','align','chr_BAM','snpmeth','log']:checkDir(outdir+"/"+d)
 
     #step
-    step=[fastQC,cleanFQ,bsmap,dealBam,getSnpAndMeth,get_statical_file]
+    step=[fastQC,cleanFQ,bsmap,dealBam,getSnpAndMeth]
     for i,j in enumerate(str(pp)):
         if j == '1':
-            if i==0:step[i](outdir+"/fastqc",fq1+fq2)
+            if i==0:
+                step[i](outdir+"/fastqc",fq1+fq2)
             elif i==1:
                 step[i](fq1,fq2,outdir+"/clean")
             elif i==2:
