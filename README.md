@@ -82,7 +82,7 @@ qualimap:/public/soft/qualimap_v2.2.1/qualimap:soft
 
 #clean,rmdup
 fastuniq:/public/soft/FastUniq/fastuniq:soft
-cutadapt:/public/softcutadapt:soft
+cutadapt:/public/soft/cutadapt:soft
 filter_fq:/public/soft/filter_fq.py:soft
 stdmap_awk:/public/soft/stdmap.awk:soft
 diffmap_awk:/public/soft/diffmap.awk:soft
@@ -94,8 +94,8 @@ bissnp:/public/soft/BisSNP/BisSNP-0.82.2.jar:soft
 job_sub_py_2:/public/soft/job_sub_py_2.py:soft
 
 #index, sort, merge, split 
-samtools:/public/soft/samtools:soft
-picard:/public/soft/picard.jar:soft
+samtools:/public/soft/samtools-1.8/samtools:soft
+picard:/public/soft/picard-2.17.3/picard.jar:soft
 
 
 #call SNP and  methy
