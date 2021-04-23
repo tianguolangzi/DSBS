@@ -74,7 +74,7 @@ Here is the example of config file which configured the path of softwares and da
 #soft
 
 java:/public/soft/jdk1.8.0_111/bin/java:soft
-java1.6:/usr/bin/java:soft
+java1.6:/public/soft/jdk1.7.0_45/bin/java:soft
 python3:/public/soft/python3:soft
 
 fastqc:/public/soft/fastqc:soft
@@ -82,7 +82,7 @@ qualimap:/public/soft/qualimap_v2.2.1/qualimap:soft
 
 #clean,rmdup
 fastuniq:/public/soft/FastUniq/fastuniq:soft
-cutadapt:/public/soft/cutadapt:soft
+cutadapt:/public/soft/cutadapt-1.8.1/bin/cutadapt:soft
 filter_fq:/public/soft/filter_fq.py:soft
 stdmap_awk:/public/soft/stdmap.awk:soft
 diffmap_awk:/public/soft/diffmap.awk:soft
