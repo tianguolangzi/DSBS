@@ -990,11 +990,15 @@ def sub_snpOutput(ID,START,END,BAM, GENOME,dbsnp, CHR, snpList,methyList,indelLi
 
 
 
-def snpOutput(bam, genomeFile,dbsnp, CHR,outDir,cpu=50,maxDistance=50, maxLen=200,minLen=50,minReadQual=20,minReadQualN=0.6,maxN=5,maxSeqErr=10,maxSnp=5,maxIndel=1,maxBp=50,maxMut=3,minQual=20,minVaf=0.01,secAlign=False,strand=False,quite=False,debug=False):
+def snpOutput(ref, bam, genomeFile, dbsnp, CHR, outDir, cpu=50, maxDistance=50, maxLen=200, minLen=50, minReadQual=20, minReadQualN=0.6, maxN=5, maxSeqErr=10, maxSnp=5, maxIndel=1, maxBp=50, maxMut=3, minQual=20, minVaf=0.01, secAlign=False, strand=False, quite=False, debug=False):
 
     global methyList,snpList
     #hg19 chromosome  length
-    CHRs={'chr1':249250621,'chr2':243199373,'chr3':198022430,'chr4':191154276,'chr5':180915260,'chr6':171115067,'chr7':159138663,'chr8':146364022,'chr9':141213431,'chr10':135534747,'chr11':135006516,'chr12':133851895,'chr13':115169878,'chr14':107349540,'chr15':102531392,'chr16':90354753,'chr17':81195210,'chr18':78077248,'chr19':59128983,'chr20':63025520,'chr21':48129895,'chr22':51304566,'chrX':155270560,'chrY':59373566,'chrM':11850}
+    if  ref == "hg19":
+        CHRs={'chr1':249250621,'chr2':243199373,'chr3':198022430,'chr4':191154276,'chr5':180915260,'chr6':171115067,'chr7':159138663,'chr8':146364022,'chr9':141213431,'chr10':135534747,'chr11':135006516,'chr12':133851895,'chr13':115169878,'chr14':107349540,'chr15':102531392,'chr16':90354753,'chr17':81195210,'chr18':78077248,'chr19':59128983,'chr20':63025520,'chr21':48129895,'chr22':51304566,'chrX':155270560,'chrY':59373566,'chrM':11850}    
+    elif ref == "hg38":
+        CHRs={"chr1":248956422, "chr2":242193529, "chr3":198295559, "chr4":190214555, "chr5":181538259, "chr6":170805979, "chr7":159345973, "chr8":145138636, "chr9":138394717, "chr10":133797422, "chr11":135086622, "chr12":133275309, "chr13":114364328, "chr14":107043718, "chr15":101991189, "chr16":90338345, "chr17":83257441, "chr18":80373285, "chr19":58617616, "chr20":64444167, "chr21":46709983, "chr22":50818468, "chrX":156040895, "chrY":57227415, "chrM":16569}
+
 
 
     checkFile(bam)
@@ -1236,6 +1240,7 @@ def get_parser():
     parser.add_argument('-g', '--genomeFile', required=True, help='the chromosome reference fasta')
     parser.add_argument('-d', '--dbsnp',      required=True, help='the dbsnp file')
     parser.add_argument('--Chr',  default='chr1', help='chromosome')
+    parser.add_argument('--ref',  default='hg19',choices=['hg19','hg38'], help='genome reference')
     return parser
 
 
@@ -1259,7 +1264,7 @@ def main():
     if args.maxMut<0   :                            parser.error("Invalid --maxMut    value,    must >= 0 and <50")
     if args.minQual<0  :                            parser.error("Invalid --minQual   value,    must >= 0 ")
     if args.minVaf <0 or args.minVaf >1:            parser.error("Invalid --minVaf    value,    must >= 0 and <1")
-    snpOutput(args.bam, args.genomeFile,args.dbsnp, args.Chr,args.outDir,args.cpu,args.maxDistance,args.maxLen,args.minLen,args.minReadQual,args.minReadQualN,args.maxN,args.maxSeqErr,args.maxSnp,args.maxIndel,args.maxBp,args.maxMut,args.minQual,args.minVaf,args.secAlign,args.strand,args.quite,args.debug)
+    snpOutput(args.ref, args.bam, args.genomeFile,args.dbsnp, args.Chr,args.outDir,args.cpu,args.maxDistance,args.maxLen,args.minLen,args.minReadQual,args.minReadQualN,args.maxN,args.maxSeqErr,args.maxSnp,args.maxIndel,args.maxBp,args.maxMut,args.minQual,args.minVaf,args.secAlign,args.strand,args.quite,args.debug)
     
 if __name__ == '__main__':
     main()
