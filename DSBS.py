@@ -1240,7 +1240,7 @@ def get_parser():
     parser.add_argument('-g', '--genomeFile', required=True, help='the chromosome reference fasta')
     parser.add_argument('-d', '--dbsnp',      required=True, help='the dbsnp file')
     parser.add_argument('--Chr',  default='chr1', help='chromosome')
-    parser.add_argument('--ref',  default='hg19',choices=['hg19','hg38'], help='genome reference')
+    parser.add_argument('--ref',  default='hg19',choices=['hg19','hg38'], help='reference genome')
     return parser
 
 
