@@ -675,7 +675,7 @@ def getSnpAndMeth(outdir):
             else:
                 bamFile='{}/{}/{}.merge.sorted.rmdup.bam'.format(outdir+"/"+Path,chr,chr)
             genomeFile='{refDir}/{chr}.fa'.format(refDir=configDict['refDir'], chr=chr)
-            command='''{python3} {DSBS} {bam} --Chr {chr} --maxBp 50 --minVaf 0.15 -q -g {genomeFile} -o {outdir}/{Path}/ --cpu {cpu} -d {dbsnp} '''.format(python3=configDict['python3'], DSBS=configDict['DSBS'], bam=bamFile, genomeFile=genomeFile, chr=chr, outdir=outdir,Path=Path, cpu=cpu, dbsnp=configDict['dbsnp_gz'])
+            command='''{python3} {DSBS}  {bam} --ref {ref} --Chr {chr} --maxBp 50 --minVaf 0.15 -q -g {genomeFile} -o {outdir}/{Path}/ --cpu {cpu} -d {dbsnp} '''.format(python3=configDict['python3'], DSBS=configDict['DSBS'], bam=bamFile, ref='hg38' if 'hg38' in configDict['ref'] else 'hg19' ,genomeFile=genomeFile, chr=chr, outdir=outdir,Path=Path, cpu=cpu, dbsnp=configDict['dbsnp_gz'])
             tmplog=outdir+'/log/'+chr+'.'+Path+".snpmeth.log"
             tmplogs.append(tmplog)
             snpCommand   +=outdir +'/' +Path + '/' + op.splitext(os.path.basename(bamFile))[0]+'.Snp.txt   ' 
